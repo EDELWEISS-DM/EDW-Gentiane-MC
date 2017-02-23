@@ -1,0 +1,38 @@
+# -*- mode: conf-unix; -*-
+# List of multi-properties (datatools::multi_properties):
+
+#@description A sample list of aliases for materials
+#@key_label   "name"
+#@meta_label  "type"
+
+############################
+[name="vacuum" type="alias"]
+#@description The alias for vacuum
+material : string = "basic::vacuum"
+
+#####################################
+[name="sample_material" type="alias"]
+#@description The alias for the sample material
+material : string = "basic::iron"
+
+#######################################
+[name="copper" type="alias"]
+#@description The alias for copper
+material : string = "basic::copper"
+
+#######################################
+[name="inox" type="alias"]
+#@description The alias for inox
+material : string = "basic::inox"
+
+#######################################
+[name="aluminium" type="alias"]
+#@description The alias for aluminium
+material : string = "basic::aluminium"
+
+#######################################
+[name="germanium" type="alias"]
+#@description The alias for germanium
+material : string = "edw::germanium"
+
+# end

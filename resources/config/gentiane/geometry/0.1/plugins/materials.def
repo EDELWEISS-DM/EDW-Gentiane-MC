@@ -1,0 +1,17 @@
+# -*- mode: conf-unix; -*-
+# List of multi-properties (datatools::multi_properties):
+
+#@description A sample list of materials
+#@key_label   "name"
+#@meta_label  "type"
+
+##################################
+[name="edw::germanium" type="material"]
+#@config germanium material
+density        : real   = 5.323
+density.unit : string = "g/cm3"
+state            : string = "solid"
+composition.mode          : string      = "fraction_mass"
+composition.names         : string [1]  = "Germanium"
+composition.fraction_mass : real   [1]  =  1.0
+
