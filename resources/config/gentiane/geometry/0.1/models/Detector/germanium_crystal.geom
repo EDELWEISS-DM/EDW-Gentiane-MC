@@ -62,3 +62,12 @@ visibility.color  : string  = "cyan"
 
 #@description The visibility hidden flag for the display of the dummy volume
 visibility.hidden : boolean = 0
+
+################################
+# Sensitive detector directive #
+################################
+
+#@description The name of the sensitive category associated to the volume
+# Note: This identifier will be used by the GEANT4 simulation manager to 
+# automatically associate a "sensitive detector" to this part of the setup
+sensitive.category : string = "HPGe_SD"

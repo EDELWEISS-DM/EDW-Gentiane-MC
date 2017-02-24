@@ -13,6 +13,8 @@
 #@description The world's GID address is characterized by its 'world' number
 addresses : string[1] = "world"
 
+# Expected GID = [0:0] for the unique top-level world volume
+
 
 ######################################
 [category="sample_box.gc" type="1000"]
@@ -21,6 +23,8 @@ addresses : string[1] = "world"
 
 #@description The sample GID address is characterized by its 'box' number
 addresses : string[1] = "box"
+
+# Expected GID = [1000:0] for an unique sample box
 
 
 ##################################
@@ -32,6 +36,8 @@ addresses : string[1] = "box"
 extends : string    = "sample_box.gc"
 by      : string[1] = "item"
 
+# Expected GID = [1010:0.0] for an unique sample in the unique box
+
 
 ####################################
 [category="detector.gc" type="2000"]
@@ -41,6 +47,8 @@ by      : string[1] = "item"
 #@description The detector GID address is characterized by its 'unit' number
 addresses : string[1] = "unit"
 
+# Expected GID = [2000:0] for an unique detector
+
 
 ########################################
 [category="hpge_crystal.gc" type="2100"]
@@ -49,6 +57,8 @@ addresses : string[1] = "unit"
 
 #@description The HPGE crystal GID address inherits the detector address
 inherits : string = "detector.gc"
+
+# Expected GID = [2100:0] for the crystal of an unique detector
 
 
 #############################################

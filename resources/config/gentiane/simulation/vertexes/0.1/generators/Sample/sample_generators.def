@@ -1,0 +1,23 @@
+# -*- mode: conf-unix; -*-
+# List of multi-properties (datatools::multi_properties):
+
+#@description The list of vertex generators
+#@key_label  "name"
+#@meta_label "type"
+
+
+###############################################################
+[name="sample.sample_bulk.vg" type="genvtx::cylinder_model_vg"]
+#@config Vertex generation from the bulk of the sample volume
+
+#@description Geometry setup compatibility
+geometry.setup_requirement : string = "gentiane"
+
+#@description Identification of the geometry origin of vertex in term of geometry category and addresses (GID)
+origin : string = " category='sample.gc' box={0} item={0} "
+
+#@description The mode used for vertex generator from the underlying cylinder model associated to the target logical volume
+mode   : string = "bulk"
+
+
+# end of sample_generators.def

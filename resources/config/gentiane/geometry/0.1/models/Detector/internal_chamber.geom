@@ -22,10 +22,10 @@
 shape_type  : string = "cylinder"
 
 #@description The internal chamber volume radius
-r           : real   = 43.0 mm
+r           : real   = 42.999 mm
 
 #@description The internal chambervolume Z dimension
-z           : real   = 197.0 mm
+z           : real   = 196.999 mm
 
 ############
 # Material #
@@ -59,3 +59,5 @@ internal_item.placement.InternalDetectorStack.x : real as length = 0.0 mm
 internal_item.placement.InternalDetectorStack.y : real as length = 0.0 mm
 internal_item.placement.InternalDetectorStack.z.gap_mode : string = "min_to_min" 
 internal_item.placement.InternalDetectorStack.z.gap_distance :real as length = 0.0 mm
+
+# end 

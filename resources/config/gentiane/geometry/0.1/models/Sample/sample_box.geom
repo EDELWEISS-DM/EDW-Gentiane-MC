@@ -178,6 +178,14 @@ internal_item.model.Sample : string = "sample.model"
 #@description The position of the physical volume with respect to the mother volume
 internal_item.placement.Sample : string = "0.0 0.0 -5.0 (mm)"
 
+###########
+# Mapping #
+###########
+
+# Convention #0 == unique sample item 
+mapping.daughter_id.Sample : string  = "[sample.gc:item=0]"
+
+
 ################################################################
 [name="sample_box.model" type="geomtools::stacked_model"]
 

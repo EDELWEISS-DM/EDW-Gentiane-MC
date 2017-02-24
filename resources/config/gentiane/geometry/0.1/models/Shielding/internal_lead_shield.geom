@@ -149,7 +149,7 @@ shape_type  : string = "polycone"
 build_mode  : string = "datafile"
 
 #@description The file that contains the coordinates of the polycone
-datafile          : string as path = "@edwgentiane:config/gentiane/geometry/0.1/models/Detector/core_internal_detector_room.data"
+datafile    : string as path = "@edwgentiane:config/gentiane/geometry/0.1/models/Shielding/core_internal_detector_room.data"
 
 #@description The rule to read the file that contains the coordinates of the polycone (z (implicit), rmin, rmax)
 datafile.columns : string = "rmin_rmax"
@@ -176,33 +176,38 @@ visibility.hidden : boolean = 0
 # Daughter volumes #
 ####################
 
-##@description The list of daughter volumes by label
-#internal_item.labels : string[4] = "DetectorBase" "DetectorCover" "DetectorInternals" "SampleBox"
+#@description The list of daughter volumes by label
+internal_item.labels : string[2] = "DetectorEnvelope" "SampleBox"
 
-#@description The model of the daughter volumes
-internal_item.model.DetectorBase : string = "detector_alu_base.model"
-internal_item.model.DetectorCover : string = "external_cover.model"
-internal_item.model.DetectorInternals : string = "internal_chamber.model"
+# The models of the daughter volumes
+
+#@description The model associated to the DetectorEnvelope daughter volume
+internal_item.model.DetectorEnvelope : string = "detector_envelope.model"
+
+#@description The model associated to the SampleBox daughter volume
 internal_item.model.SampleBox : string = "sample_box.model"
 
-#@description The placement of the daughter volumes (gravity mode donc z gap = 0)
-internal_item.placement.DetectorBase.x : real as length = 0.0 mm
-internal_item.placement.DetectorBase.y : real as length = 0.0 mm
-internal_item.placement.DetectorBase.z.gap_mode : string = "min_to_min"
-internal_item.placement.DetectorBase.z.gap_distance :real as length = 0.0 mm
-internal_item.placement.DetectorCover.x : real as length = 0.0 mm
-internal_item.placement.DetectorCover.y : real as length = 0.0 mm
-internal_item.placement.DetectorCover.z.gap_mode : string = "min_to_min"
-internal_item.placement.DetectorCover.z.gap_distance :real as length = 63.0 mm
-internal_item.placement.DetectorInternals.x : real as length = 0.0 mm
-internal_item.placement.DetectorInternals.y : real as length = 0.0 mm
-internal_item.placement.DetectorInternals.z.gap_mode : string = "min_to_min"
-internal_item.placement.DetectorInternals.z.gap_distance :real as length = 63.0 mm
+# The placements of the daughter volumes (gravity mode)
+internal_item.placement.DetectorEnvelope.x : real as length = 0.0 mm
+internal_item.placement.DetectorEnvelope.y : real as length = 0.0 mm
+internal_item.placement.DetectorEnvelope.z.gap_mode : string = "min_to_min"
+internal_item.placement.DetectorEnvelope.z.gap_distance : real as length = 1.0 um
+
 internal_item.placement.SampleBox.x : real as length = 0.0 mm
 internal_item.placement.SampleBox.y : real as length = 0.0 mm
 internal_item.placement.SampleBox.z.gap_mode : string = "min_to_min"
-internal_item.placement.SampleBox.z.gap_distance :real as length = 260.75 mm
+internal_item.placement.SampleBox.z.gap_distance : real as length = 261.0 mm # 260.754 mm
 
+
+###########
+# Mapping #
+###########
+
+# Convention #0 == unique detector unit 
+mapping.daughter_id.DetectorEnvelope : string  = "[detector.gc:unit=0]"
+
+# Convention #0 == unique sample box 
+mapping.daughter_id.SampleBox        : string  = "[sample_box.gc:box=0]"
 
 
 #############################################################################
