@@ -1,0 +1,93 @@
+# -*- mode: conf-unix; -*-
+# List of multi-properties (datatools::multi_properties):
+
+#@description The list of vertex generators
+#@key_label  "name"
+#@meta_label "type"
+
+
+#######################################################################
+[name="shielding.top_copper_plate_bulk.vg" type="genvtx::box_model_vg"]
+#@config Vertex generation from the bulk of the world volume (including daughter volumes, unrealistic)
+
+#@description Geometry setup compatibility
+geometry.setup_requirement : string = "gentiane"
+
+#@description Identification of the geometry origin of vertex in term of geometry category and addresses (GID)
+origin : string = " category='ext_copper_plate.gc' plate={0} "
+
+#@description The mode used for vertex generator from the underlying cylinder model associated to the target logical volume
+mode   : string = "bulk"
+
+
+################################################################################
+[name="shielding.bf_ext_copper_wall_bulk.vg" type="genvtx::box_model_vg"]
+#@config Vertex generation from the bulk of the back/front (X) external copper walls
+
+#@description Geometry setup compatibility
+geometry.setup_requirement : string = "gentiane"
+
+#@description Identification of the geometry origin of vertex in term of geometry category and addresses (GID)
+origin : string = " category='ext_copper_shield.gc' wall={0;1} "
+
+#@description The mode used for vertex generator from the underlying cylinder model associated to the target logical volume
+mode   : string = "bulk"
+
+
+################################################################################
+[name="shielding.lr_ext_copper_wall_bulk.vg" type="genvtx::box_model_vg"]
+#@config Vertex generation from the bulk of the left/right (Y) external copper walls
+
+#@description Geometry setup compatibility
+geometry.setup_requirement : string = "gentiane"
+
+#@description Identification of the geometry origin of vertex in term of geometry category and addresses (GID)
+origin : string = " category='ext_copper_shield.gc' wall={2;3} "
+
+#@description The mode used for vertex generator from the underlying cylinder model associated to the target logical volume
+mode   : string = "bulk"
+
+
+################################################################################
+[name="shielding.bt_ext_copper_wall_bulk.vg" type="genvtx::box_model_vg"]
+#@config Vertex generation from the bulk of the bottom/top (Z) external copper walls
+
+#@description Geometry setup compatibility
+geometry.setup_requirement : string = "gentiane"
+
+#@description Identification of the geometry origin of vertex in term of geometry category and addresses (GID)
+origin : string = " category='ext_copper_shield.gc' wall={4;5} "
+
+#@description The mode used for vertex generator from the underlying cylinder model associated to the target logical volume
+mode   : string = "bulk"
+
+
+#################################################################################
+[name="shielding.full_ext_copper_wall_bulk.vg" type="genvtx::combined_vg"]
+#@config Vertex generation from the bulk of all external copper walls
+
+#@description The names of the vertex generators to be combined
+generators : string[3] = \
+  "shielding.bf_ext_copper_wall_bulk.vg" \
+  "shielding.lr_ext_copper_wall_bulk.vg" \
+  "shielding.bt_ext_copper_wall_bulk.vg"
+
+# Note:
+# Supported units:
+# - "Bq", "mBq", "uBq", "kBq", "MBq"      : absolute weights
+# - "Bq/m3", "mBq/m3", "uBq/m3", "kBq/m3" : weights computed relatively to the volume of the shapes
+# - "Bq/kg", "mBq/kg", "uBq/kg", "kBq/kg" : weights computed relatively to the mass of the
+#   shapes (implies a known material density)
+#
+
+#@description The volume activity associated to the first generator
+generators.shielding.bf_ext_copper_wall_bulk.vg.activity : string = "1.0 Bq/m3"
+
+#@description The volume activity associated to the second generator
+generators.shielding.lr_ext_copper_wall_bulk.vg.activity : string = "1.0 Bq/m3"
+
+#@description The volume activity associated to the third generator
+generators.shielding.bt_ext_copper_wall_bulk.vg.activity : string = "1.0 Bq/m3"
+
+
+# end of external_copper_generators.def

@@ -1,0 +1,26 @@
+# -*- mode: conf-unix; -*-
+# List of multi-properties (datatools::multi_properties):
+
+#@description The list of basic vertex generators
+#@key_label  "name"
+#@meta_label "type"
+
+
+#############################################################
+[name="basic.center.vg" type="genvtx::spot_vertex_generator"]
+#@config Vertex generation from the center of the setup (world)
+
+#@description Geometry setup compatibility
+geometry.setup_requirement : string = "gentiane"
+
+#@description The X coordinate of the spot vertex
+spot.x : real as length  = 0.0 mm
+
+#@description The Y coordinate of the spot vertex
+spot.y : real as length  = 0.0 mm
+
+#@description The Z coordinate of the spot vertex
+spot.z : real as length  = 0.0 mm
+
+
+# end of basic_generators.def

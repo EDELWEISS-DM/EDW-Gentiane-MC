@@ -1,0 +1,155 @@
+# -*- mode: conf-unix; -*-
+# List of multi-properties (datatools::multi_properties):
+
+#@description The list of primary event generators
+#@key_label  "name"
+#@meta_label "type"
+
+
+###################################
+[name="K40" type="genbb::wdecay0"]
+#@config K-40 decay
+
+#@description The category of decay (genbb/decay0 syntax)
+decay_type    : string  = "background"
+
+#@description the decaying isotope  (genbb/decay0 syntax)
+decay_isotope : string  = "K40"
+
+
+###################################
+[name="Co60" type="genbb::wdecay0"]
+#@config Co-60 decay
+
+#@description The category of decay (genbb/decay0 syntax)
+decay_type    : string  = "background"
+
+#@description the decaying isotope  (genbb/decay0 syntax)
+decay_isotope : string  = "Co60"
+
+
+####################################
+[name="Bi207" type="genbb::wdecay0"]
+#@config Bi-207+Pb-207m decay
+
+#@description The category of decay (genbb/decay0 syntax)
+decay_type    : string  = "background"
+
+#@description The decaying isotope  (genbb/decay0 syntax)
+decay_isotope : string  = "Bi207+Pb207m"
+
+
+####################################
+[name="Tl208" type="genbb::wdecay0"]
+#@config Tl-208 decay
+
+#@description The category of decay (genbb/decay0 syntax)
+decay_type    : string  = "background"
+
+#@description The decaying isotope  (genbb/decay0 syntax)
+decay_isotope : string  = "Tl208"
+
+
+####################################
+[name="Bi214" type="genbb::wdecay0"]
+#@config Bi-214 decay followed by Po-214 decay
+
+#@description The category of decay (genbb/decay0 syntax)
+decay_type    : string  = "background"
+
+#@description The decaying isotope  (genbb/decay0 syntax)
+decay_isotope : string  = "Bi214+Po214"
+
+
+####################################
+[name="Pb214" type="genbb::wdecay0"]
+#@config Pb-214 decay
+
+#@description The category of decay (genbb/decay0 syntax)
+decay_type    : string  = "background"
+
+#@description The decaying isotope  (genbb/decay0 syntax)
+decay_isotope : string  = "Pb214"
+
+
+####################################
+[name="Pb210" type="genbb::wdecay0"]
+#@config Pb-210 decay (46 keV gamma ray)
+
+#@description The category of decay (genbb/decay0 syntax)
+decay_type    : string  = "background"
+
+#@description The decaying isotope  (genbb/decay0 syntax)
+decay_isotope : string  = "Pb210"
+
+
+####################################
+[name="Th234" type="genbb::wdecay0"]
+#@config Th-234 decay
+
+#@description The category of decay (genbb/decay0 syntax)
+decay_type    : string  = "background"
+
+#@description The decaying isotope  (genbb/decay0 syntax)
+decay_isotope : string  = "Th234"
+
+
+####################################
+[name="Am241" type="genbb::wdecay0"]
+#@config Am-241 decay
+
+#@description The category of decay (genbb/decay0 syntax)
+decay_type    : string  = "background"
+
+#@description The decaying isotope  (genbb/decay0 syntax)
+decay_isotope : string  = "Am241"
+
+
+############################################################
+[name="gamma-46keV" type="genbb::single_particle_generator"]
+#@config A single 46 keV gamma ray, isotropic (Pb210 like)
+
+#@description The name of the generated particle
+particle_name: string = "gamma"
+
+#@description 4-pi isotropic emission momentum
+emission_direction : string = "randomized"
+
+#@description Monokinetic gamma
+mode : string = "monokinetic"
+
+#@description Monokinetic energy
+energy : real as energy  = 46.0 keV
+
+
+#################################################################
+[name="bkg_model_test" type="genbb::combined_particle_generator"]
+#@config A  background model as a combined particle generator
+
+#@description The list of contribution to the radioactivity model
+generators.labels : string[5] = \
+"contribBi214" \
+"contribPb214" \
+"contribK40" \
+"contribPb210" \
+"contribTh234"
+
+#@description The weighting mode associated to the radioactivity model
+mode : string = "activity"
+
+#@description The identifiers of the contributing generators (must be defined above/previously)
+generators.contribBi214.name     : string = "Bi214"
+generators.contribPb214.name     : string = "Pb214"
+generators.contribK40.name       : string = "K40"
+generators.contribPb210.name     : string = "Pb210"
+generators.contribTh234.name     : string = "Th234"
+
+#@description The weights of the contributing generators
+generators.contribBi214.activity : real = 10.3 mBq
+generators.contribPb214.activity : real = 10.3 mBq
+generators.contribK40.activity   : real = 40.2 mBq
+generators.contribPb210.activity : real =  5.1 mBq
+generators.contribTh234.activity : real =  3.5 mBq
+
+
+# end of generators.def

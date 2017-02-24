@@ -1,0 +1,15 @@
+# - Utilities
+
+configure_file(edw-gentiane-mc-query.in
+  ${CMAKE_CURRENT_BINARY_DIR}/edw-gentiane-mc-query
+  @ONLY)
+
+install( FILES
+  ${CMAKE_CURRENT_BINARY_DIR}/edw-gentiane-mc-query
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}
+  PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+  GROUP_READ GROUP_EXECUTE
+  WORLD_READ WORLD_EXECUTE
+  )
+
+# - end

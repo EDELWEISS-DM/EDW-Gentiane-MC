@@ -1,0 +1,86 @@
+# -*- mode: conf-unix; -*-
+# List of multi-properties (datatools::multi_properties):
+
+#@description The list of vertex generators from the lab environment
+#@key_label  "name"
+#@meta_label "type"
+
+
+########################################################################
+[name="lab.center_ceiling_spot.vg" type="genvtx::spot_vertex_generator"]
+#@config Vertex generation from the centered top of the world volume
+
+#@description Geometry setup compatibility
+geometry.setup_requirement : string = "gentiane"
+
+#@description The X coordinate of the spot vertex
+spot.x : real as length  = 0.0 mm
+
+#@description The Y coordinate of the spot vertex
+spot.y : real as length  = 0.0 mm
+
+#@description The Z coordinate of the spot vertex
+spot.z : real as length  = 500.0 mm
+
+
+###########################################################
+[name="lab.ceiling_surface.vg" type="genvtx::box_model_vg"]
+#@config Vertex generation from the top surface of the world volume
+
+#@description Geometry setup compatibility
+geometry.setup_requirement : string = "gentiane"
+
+#@description Identification of the geometry origin of vertex in term of geometry category and addresses (GID)
+origin : string  = " category='world' world={0} "
+
+#@description The mode used for vertex generator from the underlying cylinder model associated to the target logical volume
+mode   : string  = "surface"
+
+#@description Only activate the top surface
+mode.surface.top  : boolean = true
+
+#@description Thickness of the generation surface (default = 0 mm)
+# skin_thickness : real as length = 0 mm
+
+#@description Skip along the normal to the surface (default = 0 mm)
+# skin_skip      : real as length = 0 mm
+
+
+###############################################################
+[name="lab.floor_cloud_surface.vg" type="genvtx::box_model_vg"]
+#@config Vertex generation from a gaz cloud attached to the bottom surface of the world volume
+
+#@description Geometry setup compatibility
+geometry.setup_requirement : string = "gentiane"
+
+#@description Identification of the geometry origin of vertex in term of geometry category and addresses (GID)
+origin : string  = " category='world' world={0} "
+
+#@description The mode used for vertex generator from the underlying cylinder model associated to the target logical volume
+mode   : string  = "surface"
+
+#@description Only activate the bottom surface
+mode.surface.bottom  : boolean = true
+
+#@description Thickness of the generation surface
+skin_thickness : real as length = 100 mm
+
+#@description Skip along the normal to the surface (negative = through the center of the box)
+skin_skip      : real as length = -50 mm
+
+
+######################################################
+[name="lab.world_bulk.vg" type="genvtx::box_model_vg"]
+#@config Vertex generation from the bulk of the world volume (including daughter volumes, unrealistic)
+
+#@description Geometry setup compatibility
+geometry.setup_requirement : string = "gentiane"
+
+#@description Identification of the geometry origin of vertex in term of geometry category and addresses (GID)
+origin : string  = " category='world' world={0} "
+
+#@description The mode used for vertex generator from the underlying cylinder model associated to the target logical volume
+mode   : string  = "bulk"
+
+
+# end of lab_generators.def

@@ -3,7 +3,7 @@ EDW-Gentiane-MC resource files
 ===============================
 
 :Authors: François Mauger
-:Date:    2017-02-20
+:Date:    2017-02-24
 
 .. contents::
    :depth: 3
@@ -13,7 +13,7 @@ Presentation
 ============
 
 This is  the top  level directory  of all  resource files  provided by
-EDW-Gentiane-MC.
+EDW-Gentiane-MC package.
 
 Files:
 
@@ -21,8 +21,8 @@ Files:
  * ``_BuildResourceList.sh``  (not published):  a shell  script
    which builds the list of resource  files for the CMake build system
    and stores it in  the  ``_resources.cmake``  file.  All  files  or
-   directories (including this  script) of which the  names start with
-   an underscore character  should not be published and  should not be
+   directories (including this  script) of which the  name starts with
+   an underscore character  will not be published and  thus will not be
    visible from the EDW-Gentiane-MC installation path.
  * ``_resources.cmake`` (not published): this CMake script defines the
    list of published resource files for the CMake build system through

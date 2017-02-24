@@ -218,7 +218,7 @@ visibility.hidden : boolean = 0
 ###################################################################
 [name="core_shield.model" type="geomtools::surrounded_boxed_model"]
 
-#@config The list of properties to configure the core shield including shields with copper and internal lead and detection unit 
+#@config The list of properties to configure the core shield including shields with copper and internal lead and detection unit
 
 ############
 # Geometry #
@@ -227,25 +227,42 @@ visibility.hidden : boolean = 0
 ### #@description The default length unit
 ### length_unit : string = "mm"
 
- surrounded.model      : string = "copper_shield_box.model"      
- surrounded.label        : string = "Core"  
-                 
- surrounded.front_model      : string = "outer_lead_fb_shield_base.model"      
- surrounded.front_label        : string = "Front"  
-                 
- surrounded.back_model      : string = "outer_lead_fb_shield_base.model"      
- surrounded.back_label        : string = "Back"   
-                
- surrounded.left_model        : string = "outer_lead_lr_shield_base.model" 
- surrounded.left_label          : string = "Left"        
-       
- surrounded.right_model     : string = "outer_lead_lr_shield_base.model"
- surrounded.right_label       : string = "Right"   
-                       
-                   
- surrounded.centered_x   : boolean = false    
- surrounded.centered_y   : boolean = false                        
- surrounded.centered_z   : boolean = false                        
+ surrounded.model        : string = "copper_shield_box.model"
+ surrounded.label        : string = "Core"
+
+ surrounded.front_model  : string = "outer_lead_fb_shield_base.model"
+ surrounded.front_label  : string = "Front"
+
+ surrounded.back_model   : string = "outer_lead_fb_shield_base.model"
+ surrounded.back_label   : string = "Back"
+
+ surrounded.left_model   : string = "outer_lead_lr_shield_base.model"
+ surrounded.left_label   : string = "Left"
+
+ surrounded.right_model  : string = "outer_lead_lr_shield_base.model"
+ surrounded.right_label  : string = "Right"
+
+
+ surrounded.centered_x   : boolean = false
+ surrounded.centered_y   : boolean = false
+ surrounded.centered_z   : boolean = false
+
+###########
+# Mapping #
+###########
+
+# Convention #0 == X-
+mapping.daughter_id.Back  : string  = "[ext_lead_shield.gc:wall=0]"
+
+# Convention #1 == X+
+mapping.daughter_id.Front : string  = "[ext_lead_shield.gc:wall=1]"
+
+# Convention #2 == Y-
+mapping.daughter_id.Left  : string  = "[ext_lead_shield.gc:wall=2]"
+
+# Convention #3 == Y+
+mapping.daughter_id.Right : string  = "[ext_lead_shield.gc:wall=3]"
+
 
 ############
 # Material #
@@ -323,4 +340,18 @@ material.ref    : string = "vacuum"
 #@description The recommended color for the display of the mother volume
 visibility.color  : string  = "grey"
 
+###########
+# Mapping #
+###########
 
+# Convention #0 == unique plate
+mapping.daughter_id.TopCopperPlateShield : string  = "[ext_copper_plate.gc:plate=0]"
+
+# Convention #4 == bottom Z
+mapping.daughter_id.BottomLeadShield     : string  = "[ext_lead_shield.gc:wall=4]"
+
+# Convention #5 == top Z
+mapping.daughter_id.TopLeadShield        : string  = "[ext_lead_shield.gc:wall=5]"
+
+
+# end

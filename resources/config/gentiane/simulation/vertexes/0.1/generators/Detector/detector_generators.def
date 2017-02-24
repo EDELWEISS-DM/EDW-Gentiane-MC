@@ -1,0 +1,10 @@
+# -*- mode: conf-unix; -*-
+# List of multi-properties (datatools::multi_properties):
+
+#@description The list of vertex generators
+#@key_label  "name"
+#@meta_label "type"
+
+### TO BE DONE ###
+
+# end of detector_generators.def

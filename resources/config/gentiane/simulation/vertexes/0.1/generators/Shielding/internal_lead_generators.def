@@ -1,0 +1,115 @@
+# -*- mode: conf-unix; -*-
+# List of multi-properties (datatools::multi_properties):
+
+#@description The list of vertex generators
+#@key_label  "name"
+#@meta_label "type"
+
+
+#######################################################################
+[name="shielding.bf_int_lead_wall_bulk.vg" type="genvtx::box_model_vg"]
+#@config Vertex generation from the bulk of the back/front (X) internal lead walls
+
+#@description Geometry setup compatibility
+geometry.setup_requirement : string = "gentiane"
+
+#@description Identification of the geometry origin of vertex in term of geometry category and addresses (GID)
+origin : string  = " category='int_lead_shield.gc' wall={0;1} "
+
+#@description The mode used for vertex generator from the underlying cylinder model associated to the target logical volume
+mode   : string  = "bulk"
+
+
+#######################################################################
+[name="shielding.lr_int_lead_wall_bulk.vg" type="genvtx::box_model_vg"]
+#@config Vertex generation from the bulk of the left/right (Y) internal lead walls
+
+#@description Geometry setup compatibility
+geometry.setup_requirement : string = "gentiane"
+
+#@description Identification of the geometry origin of vertex in term of geometry category and addresses (GID)
+origin : string  = " category='int_lead_shield.gc' wall={2;3} "
+
+#@description The mode used for vertex generator from the underlying cylinder model associated to the target logical volume
+mode   : string  = "bulk"
+
+
+###########################################################################
+[name="shielding.bottom_int_lead_wall_bulk.vg" type="genvtx::box_model_vg"]
+#@config Vertex generation from the bulk of the bottom (Z-) internal lead wall
+
+#@description Geometry setup compatibility
+geometry.setup_requirement : string = "gentiane"
+
+#@description Identification of the geometry origin of vertex in term of geometry category and addresses (GID)
+origin : string  = " category='int_lead_shield.gc' wall={4} "
+
+#@description The mode used for vertex generator from the underlying cylinder model associated to the target logical volume
+mode   : string  = "bulk"
+
+
+########################################################################
+[name="shielding.full_int_lead_wall_bulk.vg" type="genvtx::combined_vg"]
+#@config Vertex generation from the bulk of all internal lead walls
+
+#@description The names of the vertex generators to be combined
+generators : string[3] = \
+  "shielding.bf_int_lead_wall_bulk.vg" \
+  "shielding.lr_int_lead_wall_bulk.vg" \
+  "shielding.bottom_int_lead_wall_bulk.vg"
+
+# Note:
+# Supported units:
+# - "Bq", "mBq", "uBq", "kBq", "MBq"      : absolute weights
+# - "Bq/m3", "mBq/m3", "uBq/m3", "kBq/m3" : weights computed relatively to the volume of the shapes
+# - "Bq/kg", "mBq/kg", "uBq/kg", "kBq/kg" : weights computed relatively to the mass of the
+#   shapes (implies a known material density)
+#
+
+#@description The volume activity associated to the first generator
+generators.shielding.bf_int_lead_wall_bulk.vg.activity     : string = "1.0 Bq/m3"
+
+#@description The volume activity associated to the second generator
+generators.shielding.lr_int_lead_wall_bulk.vg.activity     : string = "1.0 Bq/m3"
+
+#@description The volume activity associated to the third generator
+generators.shielding.bottom_int_lead_wall_bulk.vg.activity : string = "1.0 Bq/m3"
+
+
+##########################################################################
+[name="shielding.core_int_lead_block_bulk.vg" type="genvtx::box_model_vg"]
+#@config Vertex generation from the bulk of the core internal lead block
+
+#@description Geometry setup compatibility
+geometry.setup_requirement : string = "gentiane"
+
+#@description Identification of the geometry origin of vertex in term of geometry category and addresses (GID)
+origin : string  = " category='core_lead_shield.gc' block={0} "
+
+#@description The mode used for vertex generator from the underlying cylinder model associated to the target logical volume
+mode   : string  = "bulk"
+
+# Note:
+# Install a special vertex validation algorithm in order to reject generated
+# vertexes from the daughter volumes within the considered volume.
+
+# #@description Give support for vertex validation (default=true)
+# vertex_validation_support : boolean = true
+
+#@description Activate vertex validation
+validation.activation : boolean = true
+
+#@description Maximum number of failed attempts before to validate one vertex (Von Neumann/rejection method)
+validation.maximum_number_of_tries : integer = 100 # Choose a safe value (depends on the mother/daughter(s) volumes ratio)
+
+#@description Chose the type of the vertex validation algorithm
+validation.validator_id : string = "genvtx::not_in_daughters_vertex_validator"
+
+#@description The effective skin around daughter volumes (vertexes are also rejected from this skin layer)
+validation.validator_params.daughter_tolerance : real as length = 0.1 mm
+
+# #@description Reverse the selection (only in daughters, default=false)
+# validation.validator_params.reversed : boolean = true
+
+
+# end of internal_lead_generators.def

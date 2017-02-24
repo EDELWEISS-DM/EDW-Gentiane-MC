@@ -30,7 +30,7 @@ addresses : string[1] = "box"
 
 #@description The sample GID address is characterized by its 'item' number
 extends : string    = "sample_box.gc"
-by      : string[1] = "item" 
+by      : string[1] = "item"
 
 
 ####################################
@@ -58,17 +58,61 @@ inherits : string = "detector.gc"
 
 #@description The sample GID address is characterized by its 'item' number
 extends : string    = "hpge_crystal.gc"
-by      : string[1] = "part" 
+by      : string[1] = "part"
 
 
-########################################
+#####################################
 [category="brass_rod.gc" type="2001"]
 
-#@config The geometry category associated to 
+#@config The geometry category associated to
 
 #@description The brass rod GID address inherits the detector address
 inherits : string = "detector.gc"
 
+
+###########################################
+[category="ext_lead_shield.gc" type="3000"]
+
+#@config The geometry category associated to the external lead shielding walls
+
+#@description The GID address is characterized by its 'wall' number
+addresses : string[1] = "wall"
+
+
+############################################
+[category="ext_copper_plate.gc" type="3010"]
+
+#@config The geometry category associated to the external copper plate
+
+#@description The GID address is characterized by its 'plate' number
+addresses : string[1] = "plate"
+
+
+#############################################
+[category="ext_copper_shield.gc" type="3020"]
+
+#@config The geometry category associated to the external copper shielding wall
+
+#@description The GID address is characterized by its 'wall' number
+addresses : string[1] = "wall"
+
+
+###########################################
+[category="int_lead_shield.gc" type="3030"]
+
+#@config The geometry category associated to the internal lead shielding walls
+
+#@description The GID address is characterized by its 'wall' number
+addresses : string[1] = "wall"
+
+
+############################################
+[category="core_lead_shield.gc" type="3040"]
+
+#@config The geometry category associated to the internal core lead shielding block
+
+#@description The GID address is characterized by its 'block' number
+addresses : string[1] = "block"
 
 
 # end
