@@ -5,7 +5,7 @@ The Geant4 session manager is a high-level object responsible of the
 full simulation process. It uses the geometry model provided by the
 Bayeux geometry manager, a vertex generator provided by the
 Bayeux vertex generator manager and a primary event generator provided
-by the Bayeux primary event generator manager. 
+by the Bayeux primary event generator manager.
 It adds functionalities specific to the Geant4 API: management of
 sensitive detectors, physics lists or constructors, and embedded
 random number generators...
@@ -53,14 +53,14 @@ Using the Bayeux/Geant4 simulation production program
       --output-prng-states-file "g4_mc_Tl208.states" \
       --number-of-events 10     \
        --output-data-file "g4_mc_Tl208.xml"
-      ... 
+      ...
 ..
-  
+
 
 2. Run the Bayeux/mctools Geant4 simulation production program in interactive
-    mode.
+   mode.
 
-   NOT WORKING on macOS for now
+   *not working on macOS for now*
 
    $ bxg4_production \
        --datatools::resource-path "edwgentiane@$(pwd)" \
@@ -75,10 +75,10 @@ Using the Bayeux/Geant4 simulation production program
       --shpf-seed 0            \
       --output-prng-seeds-file "g4_mc_Tl208.seeds"   \
       --output-prng-states-file "g4_mc_Tl208.states" \
-      --output-data-file "g4_mc_Tl208.xml"
+      --output-data-file "g4_mc_Tl208.xml" \
       --g4-visu \
-      "@edwgentiane:config/gentiane/simulation/geant4_control/0.1/visu/geant4_visualization.mac"
-      ... 
+      --g4-macro "@edwgentiane:config/gentiane/simulation/geant4_control/0.1/visu/geant4_visualization.mac"
+      ...
 ..
 
 
