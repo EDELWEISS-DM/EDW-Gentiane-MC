@@ -82,4 +82,35 @@ Using the Bayeux/Geant4 simulation production program
 ..
 
 
+3. Run the Bayeux/mctools Geant4 simulation production program in batch
+    mode.
+
+   Shoot 100 Tl208 decay events from the sample bulk volume and save output in a portable binary compressed file
+   using the Boost/Serialization archive format:
+
+.. code:: sh
+
+   $ mkdir test_run
+   $ mkdir test_run/data
+   $ mkdir test_run/log
+   $ bxg4_seeds -n 1 -d test_run/run_config
+   $ bxg4_production \
+	  --datatools::resource-path "edwgentiane@$(pwd)" \
+	  --config "@edwgentiane:config/gentiane/simulation/geant4_control/0.1/manager.conf" \
+	  --batch                  \
+	  --using-time-statistics  \
+	  --number-of-events 100     \
+	  --vertex-generator-name "sample.sample_bulk.vg"  \
+	  --event-generator-name "Tl208" \
+	  --input-prng-seeds-file "test_run/run_config/seeds_0.conf"   \
+	  --output-prng-states-file "test_run/log/prng_states.tracking" \
+	  --output-data-file "test_run/data/output_events.data.gz" \
+	  > "test_run/log/run.out" 2> "test_run/log/run.err"
+   $ LANG="C" tree test_run
+   ...
+..
+
+
+4. Analyse the simulated data: TBD
+
 .. end
