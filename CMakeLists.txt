@@ -54,6 +54,10 @@ file(RELATIVE_PATH EDWGentianeMC_CMAKEDIR_TO_RESOURCEDIR
   "${CMAKE_INSTALL_FULL_DATAROOTDIR}/${EDWGentianeMC_TAG}"
   )
 
+# message(STATUS "CMAKE_INSTALL_FULL_DATAROOTDIR = '${CMAKE_INSTALL_FULL_DATAROOTDIR}'")
+# message(STATUS "EDWGentianeMC_TAG              = '${EDWGentianeMC_TAG}'")
+set(EDWGentianeMC_INSTALL_DATAROOTDIR "${CMAKE_INSTALL_FULL_DATAROOTDIR}/${EDWGentianeMC_TAG}")
+
 # Bayeux is the main external dependency
 set(EDWGentianeMC_Bayeux_VERSION "3.0")
 set(EDWGentianeMC_Bayeux_COMPONENTS "geant4")

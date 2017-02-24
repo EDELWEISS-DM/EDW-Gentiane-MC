@@ -11,10 +11,12 @@ add_custom_target(edw_gentiane_mc_resources
 
 include(_resources.cmake)
 foreach(_rfin ${EDWGentianeMC_RESOURCES})
+  message(STATUS "Resource in file  = '${_rfin}'")
   string(REGEX REPLACE "\\.in$" "" _rfout "${_rfin}")
   string(REGEX REPLACE "^${PROJECT_SOURCE_DIR}/resources"
-    "${EDWGENTIANEMC_BUILD_DATAROOTDIR}/${EDWGENTIANEMC_RESOURCE_DIR}"
+    "${CMAKE_CURRENT_BINARY_DIR}/resources"
     _rfout "${_rfout}")
+  message(STATUS "Resource out file = '${_rfout}'")
   get_filename_component (_rfin_ext ${_rfin} EXT)
   if (_rfin_ext STREQUAL ".in")
     configure_file(${_rfin} ${_rfout} @ONLY)
@@ -22,5 +24,12 @@ foreach(_rfin ${EDWGentianeMC_RESOURCES})
     configure_file(${_rfin} ${_rfout} COPYONLY)
   endif()
 endforeach()
+
+install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/resources"
+  DESTINATION "${EDWGentianeMC_INSTALL_DATAROOTDIR}"
+  FILE_PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ
+  DIRECTORY_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+  GROUP_READ GROUP_EXECUTE
+  WORLD_READ WORLD_EXECUTE)
 
 # - end
