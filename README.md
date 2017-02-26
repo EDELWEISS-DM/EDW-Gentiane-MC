@@ -19,6 +19,7 @@ The EDW-Gentiane-MC software depends on:
 ## Installation
 
 1.  Download the source code:
+
     ```sh
 $ mkdir -p ${HOME}/softs/EDELWEISS/EDELWEISS-DM
 $ cd ${HOME}/softs/EDELWEISS/EDELWEISS-DM
@@ -27,19 +28,23 @@ $ cd EDW-Gentiane-MC
 $ git status
 ```
 1.  Enter a Cadfael/brew shell:
+
     ```sh
 $ brewsh
 ```
 1.  Setup Bayeux:
+
 	```sh
 $ bayeux_dev_setup
 ```
 1.  Create a working directory:
+
 	```sh
 $ mkdir -p /tmp/${USER}/softs/EDW-Gentiane-MC/_build.d
 $ cd /tmp/${USER}/softs/EDW-Gentiane-MC/_build.d
 ```
 1.  Configure:
+
 	```sh
 $ cmake
     -DCMAKE_INSTALL_PREFIX:PATH="${HOME}/softs/EDELWEISS/EDELWEISS-DM/EDW-Gentiane-MC-Install-0.1.0" \
@@ -47,10 +52,12 @@ $ cmake
     ${HOME}/softs/EDELWEISS/EDELWEISS-DM/EDW-Gentiane-MC
 ```
 1.  Build:
+
 	```sh
 $ make
 ```
 1.  Installation:
+
 	```sh
 $ make install
 ```
@@ -62,6 +69,7 @@ $ make install
 From the source directory, you may run the ``utility/quick_install.sh``
 experimental script to automatically install EDW-Gentiane-MC on your
 system. Usage:
+
 ```sh
 $ ./utility/quick_install.sh --help
 ```
@@ -76,6 +84,7 @@ specific to EDW-Gentiane-MC.
 ## Setup
 
 In your ``~/.bashrc`` startup script, you should add the typical following lines:
+
 ```sh
 function do_edw_gentiane_mc_dev_setup()
 {
@@ -103,6 +112,7 @@ alias edw_gentiane_mc_setup="do_edw_gentiane_mc_dev_setup"
 
 Each time you need to use the EDW-Gentiane-MC package, you must setup
 a Cadfael/brew shell with Bayeux setup and use:
+
 ```sh
 $ brewsh
 $ bayeux_dev_setup
@@ -119,6 +129,7 @@ $ which edw-gentiane-mc-run
 TO BE DONE: document the ``edw-gentiane-mc-run`` application.
 
 Usage:
+
 ```sh
 $ edw-gentiane-mc-run --help
 ...
