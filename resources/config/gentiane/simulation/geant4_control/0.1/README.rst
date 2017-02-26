@@ -39,20 +39,20 @@ Using the Bayeux/Geant4 simulation production program
    $ bayeux_dev_setup
    $ cd {EDW-Gentiane-MC source dir}/resources/
    $ bxg4_production \
-       --datatools::resource-path "edwgentiane@$(pwd)" \
-       --config "@edwgentiane:config/gentiane/simulation/geant4_control/0.1/manager.conf" \
-    --batch                  \
-      --using-time-statistics  \
-      --vertex-generator-name "sample.sample_bulk.vg"  \
-      --vertex-generator-seed 0 \
-      --event-generator-name "Tl208" \
-      --event-generator-seed 0 \
-      --g4-manager-seed 0      \
-      --shpf-seed 0            \
-      --output-prng-seeds-file "g4_mc_Tl208.seeds"   \
-      --output-prng-states-file "g4_mc_Tl208.states" \
-      --number-of-events 10     \
-       --output-data-file "g4_mc_Tl208.xml"
+	  --datatools::resource-path "edwgentiane@$(pwd)" \
+	  --config "@edwgentiane:config/gentiane/simulation/geant4_control/0.1/manager.conf" \
+	  --batch                  \
+	  --using-time-statistics  \
+	  --vertex-generator-name "sample.sample_bulk.vg"  \
+	  --vertex-generator-seed 0 \
+	  --event-generator-name "Tl208" \
+	  --event-generator-seed 0 \
+	  --g4-manager-seed 0      \
+	  --shpf-seed 0            \
+	  --output-prng-seeds-file "g4_mc_Tl208.seeds"   \
+	  --output-prng-states-file "g4_mc_Tl208.states" \
+	  --number-of-events 10     \
+	  --output-data-file "g4_mc_Tl208.xml"
       ...
 ..
 

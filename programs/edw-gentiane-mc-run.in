@@ -1,0 +1,573 @@
+#!/usr/bin/env bash
+
+# Author: F. Mauger <mauger@lpccaen.in2p3.fr>
+
+if [ ${BASH_VERSINFO} -lt 4 ]; then
+    echo >2 "[error] Unsupported Bash version ${BASH_VERSION}"
+    exit 1
+fi
+
+opwd=$(pwd)
+app_debug=0
+app_default_tmp_base_dir="/tmp/${USER}/edw-gentiane-mc.d"
+app_no_splash=0
+eqmq="@CMAKE_INSTALL_FULL_BINDIR@/edw-gentiane-mc-query"
+default_simulation_setup_version="0.1"
+declare -i default_number_of_events=1
+declare -i default_number_of_events_modulo=100
+
+function app_splash()
+{
+    cat<<EOF
+
+    EDW-Gentiane-MC Run
+    Version @EDWGentianeMC_VERSION@
+
+    Copyright (C) 2017
+    François Mauger and the EDELWEISS Collaboration
+
+EOF
+    return 0
+}
+
+function app_exit()
+{
+    local -i error_code=$1
+    shift 1
+    cd ${opwd}
+    local error_message="$@"
+    if [ ${error_code} -ne 0 -a -n "${error_message}" ]; then
+	echo >&2 "[error] ${error_message}"
+    fi
+    exit ${error_code}
+}
+
+function app_usage()
+{
+    cat<<EOF
+
+edw-gentiane-mc-run - Run HPGe Gentiane simulation program
+
+Usage: edw-gentiane-mc-run [OPTIONS]
+
+Options:
+
+  -h | --help                     Print this help then exit
+       --version                  Print version then exit
+  -S | --no-splash                Do not print the splash screen
+  -V | --verbose                  Increment verbosity
+  -a | --action name              Set the action to be performed (mandatory):
+                                  Supported actions:
+                                   - "list-vertex-generators" | "v"
+                                   - "list-event-generators" | "e"
+                                   - "run-simulation" | "s"
+  -s | --simulation-version version
+                                  Set the version of the simulation generator
+                                  (default=${default_simulation_setup_version})
+  -e | --event-generator name     Set the name of the event generator (mandatory)
+  -v | --vertex-generator name    Set the name of the vertex generator (mandatory)
+  -n | --number-of-events number  Set the number of simulated events
+                                  (default=${default_number_of_events})
+  -m | --number-of-events-module number
+                                  Set the progress rate on number of events
+                                  (default=${default_number_of_events_modulo})
+  -W | --working-base-dir dir     Choose the work base directory (default=".")
+  -w | --working-dir dir          Choose the work directory (default=automatic)
+  -o | --overwrite-working-dir    Allow overwriting of existing working directory (default=no)
+  -k | --lock-working-dir         Make the working output directory locked
+  -t | --tmp-dir dir              Choose the base temporary directory
+  -l | --run-label name           Set the label of the simulation run (default="${default_run_label}")
+  -r | --run-id id                Set the simulation run identifier (mandatory)
+
+Example:
+
+  edw-gentiane-mc-run \\
+     --verbose \\
+     --tmp-dir "/tmp/\${USER}/_EDWGentianeMC.d" \\
+     --action "run-simulation" \\
+     --simu-version "0.1" \\
+     --event-generator "Co60" \\
+     --vertex-generator "basic.center.vg" \\
+     --number-of-events 1000 \\
+     --number-of-events-modulo 100 \\
+     --working-base-dir "\${HOME}/EDWGentianeMCProduction" \\
+     --run-label "mctest" \\
+     --run-id "42"
+
+EOF
+    return
+}
+
+function app_check()
+{
+    which brew > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+	app_exit 1 "No brew shell available! Abort!"
+    fi
+
+    which bxquery > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+	app_exit 1 "Missing Bayeux bxquery application! Abort!"
+    fi
+
+    which ${eqmq} > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+	app_exit 1 "Missing EDW-Gentiane-MC setup! Abort!"
+    fi
+
+    which bxg4_seeds > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+	app_exit 1 "Missing Bayeux/mctools bxg4_seeds application! Abort!"
+    fi
+
+    which bxg4_production > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+	app_exit 1 "Missing Bayeux/mctools bxg4_production application! Abort!"
+    fi
+
+    return 0
+}
+
+function app_version()
+{
+    $(${eqmq} --version)
+    return
+}
+
+verbose=0
+working_base_dir=
+working_dir=
+tmp_dir=
+simulation_setup_version=""
+geomtools_setup_version=""
+genvtx_setup_version=""
+genbb_setup_version=""
+run_label=""
+run_id=""
+event_generator=""
+vertex_generator=""
+declare default_run_label="edw-gentiane"
+declare -i number_of_events=${default_number_of_events}
+declare -i number_of_events_modulo=${default_number_of_events_modulo}
+app_action=""
+simu_dryrun=0
+overwrite_working_dir=0
+lock_working_dir=0
+lock_file=".lock"
+
+function app_dialog()
+{
+    local remains=""
+    while true; do
+	local opt="$1"
+	shift 1
+	if [ -z ${opt} ]; then
+	    break
+	fi
+	# echo >&2 "[trace] opt = '${opt}'"
+	case "${opt}" in
+	    -h | --help )
+		app_usage
+		app_exit 0
+		;;
+	    --version )
+		app_version
+		app_exit 0
+		;;
+	    -S | --no-splash )
+		app_no_splash=1
+		;;
+	    -a | --action )
+		app_action="$1"
+		shift 1 ;;
+	    -s | --simu-version )
+		simulation_setup_version="$1"
+		shift 1 ;;
+	    -l | --run-label )
+		run_label="$1"
+		shift 1 ;;
+	    -r | --run-id )
+		run_id="$1"
+		shift 1 ;;
+	    -n | --number-of-events )
+		number_of_events=$1
+		shift 1 ;;
+	    -m | --number-of-events-modulo )
+		number_of_events_modulo=$1
+		shift 1 ;;
+	    -e | --event-generator )
+		event_generator="$1"
+		shift 1 ;;
+	    -v | --vertex-generator )
+		vertex_generator="$1"
+		shift 1 ;;
+	    -W | --working-base-dir )
+		working_base_dir="$1"
+		shift 1 ;;
+	    -w | --working-dir )
+		working_dir="$1"
+		shift 1 ;;
+	    -o | --overwrite-working-dir )
+		overwrite_working_dir=1
+		;;
+	    -k | --lock-working-dir )
+		lock_working_dir=1
+		;;
+	    -t | --tmp-dir )
+		tmp_dir="$1"
+		shift 1 ;;
+	    --dry-run )
+	    	simu_dryrun=1
+		;;
+	    -V | --verbose )
+		verbose=$((verbose + 1))
+		;;
+	    -- )
+		break
+		;;
+	    * )
+		app_exit 1 "Invalid command line options/arguments '$1'!"
+		break ;;
+	esac
+    done
+    local remains="$@" # unused
+    # echo >&2 "[trace] remains = '${remains}'"
+    return 0
+}
+
+app_check
+app_dialog $@
+if [ ${app_no_splash} -eq 0 ]; then
+    app_splash
+fi
+
+# General options:
+test ${verbose} || echo >&2 "[info] Debug mode              = '${app_debug}'"
+
+# EDW-Gentiane-MC paths:
+edw_gentiane_mc_prefix="$(${eqmq} --prefix)"
+edw_gentiane_mc_resource_dir="$(${eqmq} --resourcedir)"
+test ${verbose} || echo >&2 "[info] EDW-Gentiane-MC prefix       = '${edw_gentiane_mc_prefix}'"
+test ${verbose} || echo >&2 "[info] EDW-Gentiane-MC resource dir = '${edw_gentiane_mc_resource_dir}'"
+
+# Ensure a valid temporary directory:
+if [ -z "${tmp_dir}" ]; then
+    tmp_dir="${app_default_tmp_base_dir}"
+fi
+if [ ! -d "${tmp_dir}" ]; then
+    mkdir -p "${tmp_dir}"
+    if [ $? -ne 0 ]; then
+	app_exit 1 "[error] Cannot create temporary base directory '${tmp_dir}'!"
+	return 1
+    fi
+fi
+test ${verbose} || echo >&2 "[info] Temporary base directory = '${tmp_dir}'"
+
+# Compute software components' versions:
+if [ -z "${simulation_setup_version}" ]; then
+    simulation_setup_version="${default_simulation_setup_version}"
+fi
+if [ "${simulation_setup_version}" = "0.1" ]; then
+    geomtools_setup_version="0.1"
+    genvtx_setup_version="0.1"
+    genbb_setup_version="0.1"
+fi
+test ${verbose} || echo >&2 "[info] Geometry version          = '${geomtools_setup_version}'"
+test ${verbose} || echo >&2 "[info] Vertex generation version = '${genvtx_setup_version}'"
+test ${verbose} || echo >&2 "[info] Event generagtion version = '${genbb_setup_version}'"
+test ${verbose} || echo >&2 "[info] Simulation version        = '${simulation_setup_version}'"
+
+# Check required action:
+if [ -z "${app_action}" ]; then
+    app_exit 1 "Missing action!"
+fi
+test ${verbose} || echo >&2 "[info] Action              = '${app_action}'"
+
+# Internal variables:
+declare -A _the_list_of_vertex_generators
+declare -A _the_list_of_event_generators
+
+function build_list_of_vertex_generators()
+{
+    local geomtools_setup_conf_path="${edw_gentiane_mc_resource_dir}/config/gentiane/geometry/${geomtools_setup_version}/manager.conf"
+    local genvtx_setup_conf_path="${edw_gentiane_mc_resource_dir}/config/gentiane/simulation/vertexes/${genvtx_setup_version}/manager.conf"
+    local outfile=$(mktemp "${app_default_tmp_base_dir}/edw-out-XXXXXX")
+    local logfile=$(mktemp "${app_default_tmp_base_dir}/edw-log-XXXXXX")
+    bxgenvtx_production \
+	--datatools::resource-path "edwgentiane@${edw_gentiane_mc_resource_dir}" \
+	--geometry-manager "${geomtools_setup_conf_path}" \
+	--vertex-generator-manager "${genvtx_setup_conf_path}" \
+	--list 2> ${logfile} > ${outfile}
+    if [ $? -ne 0 ]; then
+	echo >&2 "[error] Bayeux/genvtx failed to list the vertex generators!"
+	echo >&2 "[error] Backtrace:"
+	cat ${logfile} >&2
+	return 1
+    fi
+    rm -f ${logfile}
+    while read line; do
+	local name="$(echo "${line}" | cut -d':' -f1 | xargs)"
+	if [ -z "${name}" ]; then
+	    continue
+	fi
+	local desc="$(echo "${line}" | cut -d':' -f2- | xargs)"
+	_the_list_of_vertex_generators["${name}"]="${desc}"
+    done < ${outfile}
+    rm -f ${outfile}
+
+    for elem in ${!_the_list_of_vertex_generators[*]} ; do
+	local value=${_the_list_of_vertex_generators[${elem}]}
+   done
+
+    return 0
+}
+
+function build_list_of_event_generators()
+{
+    local genbb_setup_conf_path="${edw_gentiane_mc_resource_dir}/config/gentiane/simulation/primary_events/${genbb_setup_version}/manager.conf"
+    local outfile=$(mktemp "${app_default_tmp_base_dir}/edw-out-XXXXXX")
+    local logfile=$(mktemp "${app_default_tmp_base_dir}/edw-log-XXXXXX")
+    bxgenbb_inspector \
+	--datatools::resource-path "edwgentiane@${edw_gentiane_mc_resource_dir}" \
+	--configuration "${genbb_setup_conf_path}" \
+	--action "list" \
+	--list-print-mode "raw" \
+	2> ${logfile} > ${outfile}
+    if [ $? -ne 0 ]; then
+	echo >&2 "[error] Bayeux/genbb failed to list the primary event generators!"
+	echo >&2 "[error] Backtrace:"
+	cat ${logfile} >&2
+	return 1
+    fi
+    rm -f ${logfile}
+    while read line; do
+	local name=$(echo "${line}" | cut -d':' -f1 | xargs)
+	if [ -z "${name}" ]; then
+	    continue
+	fi
+	local desc=$(echo "${line}" | cut -d':' -f2 | xargs)
+	_the_list_of_event_generators[${name}]="${desc}"
+    done < ${outfile}
+    rm -f ${outfile}
+    return 0
+}
+
+function action_list_vertex_generators()
+{
+    build_list_of_vertex_generators
+    if [ $? -ne 0 ]; then
+	echo >&2 "[error] Cannot build the list of vertex generators!"
+	return 1
+    fi
+    local -i len=0
+    local -a names
+    for name in "${!_the_list_of_vertex_generators[@]}" ; do
+	name=$(echo "${name}" | tr -d [[:space:]])
+	if [ ${#name} -gt ${len} ]; then
+	    len=${#name}
+	fi
+	names+=("${name}")
+    done
+    let len=len+1
+    sorted_names=($( echo ${names[*]} | sed -e 's/ /\n/g' | sort ))
+    echo >&2 "Supported vertex generators (version ${genvtx_setup_version}):"
+    for name in ${sorted_names[*]} ; do
+	printf "%-${len}s : " "${name}"
+	local desc="${_the_list_of_vertex_generators[${name}]}"
+	printf "%-s\n" "${desc}"
+    done
+    return 0
+}
+
+function action_list_event_generators()
+{
+    build_list_of_event_generators
+    if [ $? -ne 0 ]; then
+	echo >&2 "[error] Cannot build the list of event generators!"
+	return 1
+    fi
+    local -i len=0
+    local -a names
+    for name in "${!_the_list_of_event_generators[@]}" ; do
+	name=$(echo "${name}" | tr -d [[:space:]])
+	if [ ${#name} -gt ${len} ]; then
+	    len=${#name}
+	fi
+	names+=("${name}")
+    done
+    let len=len+1
+    sorted_names=($( echo ${names[*]} | sed -e 's/ /\n/g' | sort ))
+    echo >&2 "Supported primary event generators (version ${genbb_setup_version}):"
+    for name in ${sorted_names[*]} ; do
+	printf "%-${len}s : " "${name}"
+	local desc="${_the_list_of_event_generators[${name}]}"
+	printf "%-s\n" "${desc}"
+    done
+    return 0
+}
+
+function action_simulation()
+{
+
+    if [ -z "${run_label}" ]; then
+	run_label="${default_run_label}"
+    fi
+    test ${verbose} || echo >&2 "[info] Run label       = '${run_label}'"
+
+    if [ -z "${run_id}" ]; then
+	app_exit 1 "Missing run identifier! Abort!"
+	return 1
+    fi
+    test ${verbose} || echo >&2 "[info] Run identifier  = '${run_id}'"
+
+    if [ -z "${working_dir}" ]; then
+	if [ -z "${working_base_dir}" ]; then
+	    working_base_dir="."
+	fi
+	if [ -d "${working_base_dir}" ]; then
+	    echo >&2 "[notice] Working base directory '${working_base_dir}' already exists."
+	fi
+	test ${verbose} || echo >&2 "[info] Working base directory = '${working_base_dir}'"
+	working_dir="${working_base_dir}/${run_label}_${run_id}"
+    fi
+    test ${verbose} || echo >&2 "[info] Working directory       = '${working_dir}'"
+
+    if [ -d "${working_dir}" ]; then
+	if [ ${overwrite_working_dir} -eq 1 ]; then
+	    if [ -f ${working_dir}/${lock_file} ]; then
+		app_exit 1 "Attempt to remove existing working directory '${working_dir}' failed because a lock is set! Abort!"
+		return 1
+	    fi
+	    echo >&2 "[notice] Removing existing working base directory '${working_base_dir}'..."
+	    rm -fr ${working_dir}
+	else
+	    app_exit 1 "Working directory '${working_dir}' already exists! Abort!"
+	    return 1
+	fi
+    else
+	mkdir -p ${working_dir}
+	if [ $? -ne 0 ]; then
+	    app_exit 1 "Cannot create working directory '${working_dir}'! Abort!"
+	    return 1
+	fi
+    fi
+
+    if [ -z "${event_generator}" ]; then
+	app_exit 1 "Missing event generator! Abort!"
+	return 1
+    fi
+
+    if [ -z "${vertex_generator}" ]; then
+	app_exit 1 "Missing vertex generator! Abort!"
+	return 1
+    fi
+
+    if [ ${number_of_events} -le 0 ]; then
+	app_exit 1 "Invalid number of events! Abort!"
+	return 1
+    fi
+
+    local simu_log_dir="${working_dir}/log"
+    local simu_data_dir="${working_dir}/data"
+    local simu_config_dir="${working_dir}/config"
+    local run_full_id="${run_label}_${run_id}"
+    mkdir -p ${simu_log_dir}
+    mkdir -p ${simu_data_dir}
+    mkdir -p ${simu_config_dir}
+    local config_metadata_path="${run_full_id}.metadata"
+    local data_path="${run_full_id}.data.gz"
+    local config_prng_seeds_path="${run_full_id}-seeds.conf"
+    local log_prng_states_path="${run_full_id}-prng_states.log"
+    local log_out_path="${run_full_id}-out.log"
+    local log_err_path="${run_full_id}-err.log"
+
+    # Generate individual seeds for the random generators embedded in the Geant4 simulation manager:
+    bxg4_seeds -n 1 -d ${simu_config_dir} -k -T --pattern "${config_prng_seeds_path}"
+
+    # Generate metadata file:
+    cat > ${simu_config_dir}/${config_metadata_path} <<EOF
+application="edw-gentiane-mc-run"
+version="$(edw-gentiane-mc-query --version)"
+start_timestamp=$(date +%s)
+datetime="$(date +%F-%T)"
+hostname="$(hostname)"
+os="$(uname -s)"
+arch="$(uname -m)"
+operator="${USER}"
+run_type="simulation"
+run_label="${run_label}"
+run_id="${run_id}"
+simulation_setup_version="${simulation_setup_version}"
+geomtools_setup_version="${geomtools_setup_version}"
+genvtx_setup_version="${genvtx_setup_version}"
+genbb_setup_version="${genbb_setup_version}"
+number_of_events=${number_of_events}
+vertex_generator="${vertex_generator}"
+event_generator="${event_generator}"
+input_prng_seeds="config/${config_prng_seeds_path}"
+output_prng_states="log/${log_prng_states_path}"
+output_data_file="data/${data_path}"
+log_out="log/${log_out_path}"
+log_err="log/${log_err_path}"
+EOF
+
+    # Run the  Geant4 simulation manager:
+    simu_status=0
+    bxg4_production \
+	--datatools::resource-path "edwgentiane@${edw_gentiane_mc_resource_dir}" \
+	--config "@edwgentiane:config/gentiane/simulation/geant4_control/${simulation_setup_version}/manager.conf" \
+	--batch                  \
+	--using-time-statistics  \
+	--number-of-events         ${number_of_events} \
+	--number-of-events-modulo  ${number_of_events_modulo} \
+	--vertex-generator-name   "${vertex_generator}"  \
+	--event-generator-name    "${event_generator}" \
+	--input-prng-seeds-file   "${simu_config_dir}/${config_prng_seeds_path}"   \
+	--output-prng-states-file "${simu_log_dir}/${log_prng_states_path}" \
+	--output-data-file        "${simu_data_dir}/${data_path}" \
+	> "${simu_log_dir}/${log_out_path}" 2> "${simu_log_dir}/${log_err_path}"
+    if [ $? -ne 0 ]; then
+	simu_status=1
+	echo >&2 "[error] Simulation failed!"
+	echo >&2 "[error] Backtrace:"
+	cat ${simu_log_dir}/${log_err_path} >&2
+    fi
+
+    # Finalize the metadata file:
+    cat >> ${simu_config_dir}/${config_metadata_path} <<EOF
+stop_timestamp=$(date +%s)
+simu_status=${simu_status}
+EOF
+
+    if [ ${lock_working_dir} -eq 1 ]; then
+	# Set a lock file to prevent overwriting...
+	touch ${working_dir}/${lock_file}
+	chmod -R a-w ${working_dir}
+    fi
+    tree ${working_dir}/
+
+    if [ ${simu_status} -ne 0 ]; then
+	app_exit 1 "Simulation failed! Abort!"
+    fi
+    return 0
+}
+
+# Main thread:
+case "${app_action}" in
+    v | list-vertex-generators )
+	action_list_vertex_generators
+	;;
+    e | list-event-generators )
+	action_list_event_generators
+	;;
+    s | run-simulation )
+	action_simulation
+	;;
+    * )
+	app_exit 1 "Invalid action '${app_action}'! Abort!"
+	;;
+esac
+
+app_exit 0
+
+# end

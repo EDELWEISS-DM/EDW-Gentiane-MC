@@ -18,11 +18,7 @@ endif()
 list(INSERT CMAKE_MODULE_PATH 0 ${PROJECT_SOURCE_DIR}/cmake)
 
 # - Versioning
-set(EDWGentianeMC_VERSION_MAJOR 0)
-set(EDWGentianeMC_VERSION_MINOR 1)
-set(EDWGentianeMC_VERSION_PATCH 0)
-set(EDWGentianeMC_VERSION
-  "${EDWGentianeMC_VERSION_MAJOR}.${EDWGentianeMC_VERSION_MINOR}.${EDWGentianeMC_VERSION_PATCH}")
+include(Versioning)
 
 #-----------------------------------------------------------------------
 # - Standard UNIX Tool install paths, including relative paths for use
@@ -67,6 +63,6 @@ find_package(Bayeux ${EDWGentianeMC_Bayeux_VERSION} REQUIRED
 
 add_subdirectory(utilities)
 add_subdirectory(resources)
-# add_subdirectory(source)
+add_subdirectory(programs)
 
 # - end of CMakeLists.txt

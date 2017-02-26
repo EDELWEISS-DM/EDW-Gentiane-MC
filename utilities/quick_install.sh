@@ -2,6 +2,7 @@
 
 # Authors: F. Mauger <mauger@lpccaen.in2p3.fr>
 #          C. Augier <augier@ipnl.in2p3.fr> (No, it's a joke!)
+#          The EDELWEISS Collaboration
 
 app_debug=0
 app_default_build_dir="$(pwd)/_build.d"
@@ -9,22 +10,23 @@ app_default_install_dir="$(pwd)/_install.d"
 source_dir="$(pwd)"
 build_dir=
 install_dir=
+no_preserve_dirs=0
 no_splash=0
-
+version_major=$(cat ${source_dir}/cmake/Versioning.cmake | grep _VERSION_MAJOR | cut -d' ' -f2 | tr -d [:punct:])
+version_minor=$(cat ${source_dir}/cmake/Versioning.cmake | grep _VERSION_MINOR | cut -d' ' -f2 | tr -d [:punct:])
+version_patch=$(cat ${source_dir}/cmake/Versioning.cmake | grep _VERSION_PATCH | cut -d' ' -f2 | tr -d [:punct:])
+version_string="${version_major}.${version_minor}.${version_patch}"
 opwd=$(pwd)
 
 function app_splash()
 {
     cat<<EOF
 
-=============================================
-*                                           *
-* EDW-Gentiane-MC Quick Installation Wizard *
-*                                           *
-* Copyright (C) 2017                        *
-* The EDELWEISS Collaboration               *
-*                                           *
-=============================================
+    EDW-Gentiane-MC Quick Installation Wizard
+    Version ${version_string}
+
+    Copyright (C) 2017
+    François Mauger and the EDELWEISS Collaboration
 
 EOF
     return 0
@@ -51,10 +53,11 @@ Usage: quick_install.sh [OPTIONS]
 
 Options:
 
-  --help         Print this help then exit
-  --build-dir    Choose de build temporary directory
-  --install-dir  Choose de installation directory
-  --no-splash    Do not print the splash screen
+  --help              Print this help then exit
+  --no-splash         Do not print the splash screen
+  --build-dir         Choose the build temporary directory (default=./_build.d)
+  --install-dir       Choose the installation directory (default=./_install.d)
+  --no-preserve-dirs  Allow overwriting of existing directories
 
 Example:
 
@@ -80,6 +83,8 @@ function app_dialog()
 	    build_dir="$1"
 	elif [ "${opt}" == "--no-splash" ]; then
 	    no_splash=1
+	elif [ "${opt}" == "--no-preserve-dirs" ]; then
+	    no_preserve_dirs=1
 	elif [ "${opt}" == "--help" ]; then
 	    app_help
 	    app_exit 0
@@ -91,6 +96,7 @@ function app_dialog()
 }
 
 app_dialog $@
+#echo >&2 "[debug] no_splash = ${no_splash}"
 if [ ${no_splash} -eq 0 ]; then
     app_splash
 fi
@@ -107,23 +113,39 @@ fi
 
 if [ -z "${build_dir}" ]; then
     build_dir="${app_default_build_dir}"
+    if [ -d "${app_default_build_dir}" ]; then
+	rm -fr "${app_default_build_dir}"
+    fi
 fi
 if [ -z "${install_dir}" ]; then
     install_dir="${app_default_install_dir}"
+    if [ -d "${app_default_install_dir}" ]; then
+	rm -fr "${app_default_install_dir}"
+    fi
 fi
 
-echo >&2 "[info] build directory   = '${build_dir}'"
-echo >&2 "[info] install directory = '${install_dir}'"
-echo >&2 "[info] Bayeux prefix     = '$(bxquery --prefix)'"
+echo >&2 "[info] Version                    = '${version_string}'"
+echo >&2 "[info] Bayeux prefix              = '$(bxquery --prefix)'"
+echo >&2 "[info] Build directory            = '${build_dir}'"
+echo >&2 "[info] Installation directory     = '${install_dir}'"
+echo >&2 "[info] Don't preserve directories = ${no_preserve_dirs}"
 
 if [ -d ${build_dir} ]; then
-    echo >&2 "[info] Remove old build directory..."
-    rm -fr ${build_dir}
+    if [ ${no_preserve_dirs} -eq 1 ]; then
+	echo >&2 "[info] Remove old build directory..."
+	rm -fr ${build_dir}
+    else
+	app_exit 1 "Build directory already exists and cannot be removed! Abort!"
+    fi
 fi
 
 if [ -d ${install_dir} ]; then
-    echo >&2 "[info] Remove old install directory..."
-    rm -fr ${install_dir}
+    if [ ${no_preserve_dirs} -eq 1 ]; then
+	echo >&2 "[info] Remove old installation directory..."
+	rm -fr ${install_dir}
+    else
+	app_exit 1 "Installation directory already exists and cannot be removed! Abort!"
+    fi
 fi
 
 echo >&2 "[info] Creating build directory..."
@@ -167,7 +189,7 @@ cd ${opwd}
 
 echo >&2 "[info] The EDW-Gentiane-MC package has been successfully installed in : '${install_dir}'"
 
-LANG="C" tree ${install_dir} >&2
+# LANG="C" tree ${install_dir} >&2
 
 bash_rc="${HOME}/.bash.edw-gentiane-mc.sample"
 touch ${bash_rc}
@@ -202,6 +224,8 @@ alias go_edw_gentiane_mc="cd \${EDWGENTIANEMC_SOURCE_DIR}"
 alias edw_gentiane_mc_setup="do_edw_gentiane_mc_dev_setup"
 
 EOF
+
+echo >&2 "[info] Bash setup sample script have been generated : '${bash_rc}'"
 
 app_exit 0
 

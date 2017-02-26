@@ -34,9 +34,9 @@ APPNAME="edw-gentiane-mc-query"
 
 prefix_dir="@CMAKE_INSTALL_PREFIX@"
 version_str="@EDWGentianeMC_VERSION@"
-lib_dir="${prefix_dir}/@CMAKE_INSTALL_LIBDIR@"
+#lib_dir="${prefix_dir}/@CMAKE_INSTALL_LIBDIR@"
 bin_dir="${prefix_dir}/@CMAKE_INSTALL_BINDIR@"
-inc_dir="${prefix_dir}/@CMAKE_INSTALL_INCLUDEDIR@"
+#inc_dir="${prefix_dir}/@CMAKE_INSTALL_INCLUDEDIR@"
 data_dir="${prefix_dir}/@CMAKE_INSTALL_DATADIR@/EDWGentianeMC-@EDWGentianeMC_VERSION@"
 doc_dir="${data_dir}/Documentation"
 resource_dir="${data_dir}/resources"
@@ -56,13 +56,7 @@ Options:
 
   --prefix               Print installation prefix directory.
 
-  --libdir               Print library directory.
-
-  --plugindir            Print the plugin directory.
-
   --bindir               Print binary directory.
-
-  --incdir               Print include base directory.
 
   --datadir              Print data base directory.
 
@@ -70,12 +64,14 @@ Options:
 
   --resourcedir          Print resource base directory.
 
-  --plugins              Print the list of shipped plugins/modules.
-
 EOF
 
     return
 }
+
+# --plugins              Print the list of shipped plugins/modules.
+# --libdir               Print library directory.
+# --incdir               Print include base directory.
 
 while [ -n "$?" ]; do
       token="$1"
@@ -90,39 +86,39 @@ while [ -n "$?" ]; do
 	  elif [ "${option}" = "--prefix" ]; then
 	      echo ${prefix_dir}
 	      exit 0
-	  elif [ "${option}" = "--libdir" ]; then
-	      echo ${lib_dir}
-	      exit 0
+	  # elif [ "${option}" = "--libdir" ]; then
+	  #     echo ${lib_dir}
+	  #     exit 0
 	  elif [ "${option}" = "--bindir" ]; then
 	      echo ${bin_dir}
 	      exit 0
-	  elif [ "${option}" = "--incdir" ]; then
-	      echo ${inc_dir}
-	      exit 0
+	  # elif [ "${option}" = "--incdir" ]; then
+	  #     echo ${inc_dir}
+	  #     exit 0
 	  elif [ "${option}" = "--datadir" ]; then
 	      echo ${data_dir}
 	      exit 0
 	  elif [ "${option}" = "--docdir" ]; then
 	      echo ${doc_dir}
 	      exit 0
-	  elif [ "${option}" = "--plugindir" ]; then
-	      echo ${plugin_dir}
-	      exit 0
+	  # elif [ "${option}" = "--plugindir" ]; then
+	  #     echo ${plugin_dir}
+	  #     exit 0
 	  elif [ "${option}" = "--resourcedir" ]; then
 	      echo ${resource_dir}
 	      exit 0
-	  elif [ "${option}" = "--plugins" ]; then
-	      for plugin in ${plugins} ; do
-		  echo ${plugin}
-	      done
-	      exit 0
+	  # elif [ "${option}" = "--plugins" ]; then
+	  #     for plugin in ${plugins} ; do
+	  # 	  echo ${plugin}
+	  #     done
+	  #     exit 0
 	  else
-	      echo "error: ${APPNAME}: Invalid option '${option}' !" >&2
+	      echo >&2 "[error] ${APPNAME}: Invalid option '${option}' !"
 	      print_usage
 	      exit 1
 	  fi
       else
-	  echo "error: ${APPNAME}: Invalid argument '${token}' !" >&2
+	  echo >&2 "[error] ${APPNAME}: Invalid argument '${token}' !"
 	  print_usage
 	  exit 1
       fi
