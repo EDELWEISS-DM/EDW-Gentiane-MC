@@ -43,6 +43,10 @@ function app_exit()
     exit ${error_code}
 }
 
+if [ ! -f ./CMakeLists.txt ]; then
+    app_exit 1 "It seems you are not running this script from the source directory! Abort!"
+fi
+
 function app_help()
 {
     cat<<EOF
@@ -195,12 +199,15 @@ bash_rc="${HOME}/.bash.edw-gentiane-mc.sample"
 touch ${bash_rc}
 cat > ${bash_rc} <<EOF
 # -*- mode: shell-script; -*-
-export EDWGENTIANEMC_SOURCE_DIR="$(pwd)"
-echo >&2 "[info] Type 'edw_gentiane_mc_setup' to setup EDW-Gentiane-MC !"
-echo >&2 "[info] Type 'go_edw_gentiane_mc' to cd in the EDW-Gentiane-MC source directory!"
 
+echo >&2 "[info] Type 'go_edw_gentiane_mc' to cd in the EDW-Gentiane-MC source directory!"
+export EDWGENTIANEMC_SOURCE_DIR="$(pwd)"
+alias go_edw_gentiane_mc="cd \${EDWGENTIANEMC_SOURCE_DIR}"
+
+echo >&2 "[info] Type 'edw_gentiane_mc_setup' to setup EDW-Gentiane-MC !"
 function do_edw_gentiane_mc_dev_setup()
 {
+    # Checks:
     if [ -z "\${CADFAELBREW_INSTALL_DIR}" ]; then
         echo >&2 "[error] Not a Cadfaelbrew shell! Please run 'brewsh'!"
         return 1
@@ -210,7 +217,8 @@ function do_edw_gentiane_mc_dev_setup()
         echo >&2 "[error] Bayeux is not setup!"
         return 1
     fi
-    if [ -n "${EDWGENTIANEMC_INSTALL_DIR}" ]; then
+    # Setup:
+    if [ -n "\${EDWGENTIANEMC_INSTALL_DIR}" ]; then
         echo >&2 "[warning] EDW-Gentiane-MC is already setup !"
         return 1
     fi
@@ -220,7 +228,6 @@ function do_edw_gentiane_mc_dev_setup()
     return 0;
 }
 export -f do_edw_gentiane_mc_dev_setup
-alias go_edw_gentiane_mc="cd \${EDWGENTIANEMC_SOURCE_DIR}"
 alias edw_gentiane_mc_setup="do_edw_gentiane_mc_dev_setup"
 
 EOF
