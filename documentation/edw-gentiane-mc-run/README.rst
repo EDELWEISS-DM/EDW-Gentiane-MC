@@ -79,6 +79,9 @@ from a  C++ client  software through  a reader  class provided  by the
 Bayeux/datatools  and/or  Bayeux/mctools   library  modules  (see  for
 example the ``mctools/simulated_data_reader`` class).
 
+Output data models
+------------------
+
 Each  simulated  event  is  represented  by an  instance  of  the  C++
 ``mctools::simulated_data``  class (from  the Bayeux/mctools  API).  A
 ``mctools::simulated_data``  object  contains  collections  of  *truth
