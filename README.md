@@ -26,23 +26,19 @@ $ git clone https://github.com/EDELWEISS-DM/EDW-Gentiane-MC EDW-Gentiane-MC
 $ cd EDW-Gentiane-MC
 $ git status
 ```
-
 2. Enter a Cadfael/brew shell:
 ```sh
 $ brewsh
 ```
-
 3. Setup Bayeux:
 ```sh
 $ bayeux_dev_setup
 ```
-
 4. Create a working directory:
 ```sh
 $ mkdir -p /tmp/${USER}/softs/EDW-Gentiane-MC/_build.d
 $ cd /tmp/${USER}/softs/EDW-Gentiane-MC/_build.d
 ```
-
 5. Configure:
 ```sh
 $ cmake
@@ -50,16 +46,16 @@ $ cmake
     -DBayeux_DIR="$(bxquery --cmakedir)" \
     ${HOME}/softs/EDELWEISS/EDELWEISS-DM/EDW-Gentiane-MC
 ```
-
 6. Build:
 ```sh
 $ make
 ```
-
 7. Installation:
 ```sh
 $ make install
 ```
+8. You can safely remove the build directory.
+
 
 ## Quick install
 
@@ -71,6 +67,11 @@ $ ./utility/quick_install.sh --help
 ```
 
 
+## Uninstall
+
+You just have to delete the installation directory and
+clean your ``~/.bashrc`` startup script from setup commands
+specific to EDW-Gentiane-MC.
 
 ## Setup
 
