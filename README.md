@@ -46,7 +46,7 @@ $ cd /tmp/${USER}/softs/EDW-Gentiane-MC/_build.d
 1.  Configure:
 
 	```sh
-$ cmake
+$ cmake \
     -DCMAKE_INSTALL_PREFIX:PATH="${HOME}/softs/EDELWEISS/EDELWEISS-DM/EDW-Gentiane-MC-Install-0.1.0" \
     -DBayeux_DIR="$(bxquery --cmakedir)" \
     ${HOME}/softs/EDELWEISS/EDELWEISS-DM/EDW-Gentiane-MC
@@ -61,24 +61,30 @@ $ make
 	```sh
 $ make install
 ```
-1.  You can safely remove the build directory.
+1.  You can safely remove the build directory:
 
+	```sh
+$ rm -fr /tmp/${USER}/softs/EDW-Gentiane-MC/_build.d
+```
 
 ## Quick install
 
 From the source directory, you may run the ``utility/quick_install.sh``
 experimental script to automatically install EDW-Gentiane-MC on your
-system. Usage:
+system.
+
+Usage:
 
 ```sh
 $ ./utility/quick_install.sh --help
+...
 ```
 
 
 ## Uninstall
 
 You just have to delete the installation directory and
-clean your ``~/.bashrc`` startup script from setup commands
+clean your ``~/.bashrc`` startup script from commands
 specific to EDW-Gentiane-MC.
 
 ## Setup
