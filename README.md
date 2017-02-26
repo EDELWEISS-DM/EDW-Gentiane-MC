@@ -13,8 +13,11 @@ The EDW-Gentiane-MC software is known to build and run on:
 - macOS 10.9.5
 
 The EDW-Gentiane-MC software depends on:
-- Cadfaelbrew (https://github.com/SuperNEMO-DBD/brew)
-- Bayeux version >= 3.0 (not published yet on GitHub)
+- Cadfaelbrew (https://github.com/SuperNEMO-DBD/brew) : a fork of the Homebrew/Linuxbrew package manager
+  adapted to data analysis and simulation in experimental High Energy and Nuclear Physics
+  (includes Boost, Geant4, ROOT...)
+- Bayeux version >= 3.0 (not published yet on GitHub) : a general purpose C++ library
+  for data analysis and simulation in experimental High Energy and Nuclear Physics (depends on Cadfaelbrew)
 
 ## Installation
 
