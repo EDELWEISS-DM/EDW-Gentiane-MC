@@ -38,18 +38,18 @@ $ brewsh
 1.  Setup Bayeux:
 
 	```sh
-brewShell$ bayeux_dev_setup
+{brewShell}$ bayeux_dev_setup
 ```
 1.  Create a working directory:
 
 	```sh
-brewShell$ mkdir -p /tmp/${USER}/softs/EDW-Gentiane-MC/_build.d
-brewShell$ cd /tmp/${USER}/softs/EDW-Gentiane-MC/_build.d
+{brewShell}$ mkdir -p /tmp/${USER}/softs/EDW-Gentiane-MC/_build.d
+{brewShell}$ cd /tmp/${USER}/softs/EDW-Gentiane-MC/_build.d
 ```
 1.  Configure:
 
 	```sh
-brewShell$ cmake \
+{brewShell}$ cmake \
     -DCMAKE_INSTALL_PREFIX:PATH="${HOME}/softs/EDELWEISS/EDELWEISS-DM/EDW-Gentiane-MC-Install-0.1.0" \
     -DBayeux_DIR="$(bxquery --cmakedir)" \
     ${HOME}/softs/EDELWEISS/EDELWEISS-DM/EDW-Gentiane-MC
@@ -57,12 +57,12 @@ brewShell$ cmake \
 1.  Build:
 
 	```sh
-brewShell$ make
+{brewShell}$ make
 ```
 1.  Installation:
 
 	```sh
-brewShell$ make install
+{brewShell}$ make install
 ```
 1.  You can safely remove the build directory:
 
@@ -79,7 +79,7 @@ system.
 Usage:
 
 ```sh
-brewShell$ ./utility/quick_install.sh --help
+{brewShell}$ ./utility/quick_install.sh --help
 ...
 ```
 
@@ -124,11 +124,11 @@ a Cadfael/brew shell with Bayeux setup and use:
 
 ```sh
 $ brewsh
-brewShell$ bayeux_dev_setup
-brewShell$ edw_gentiane_mc_setup
-brewShell$ edw-gentiane-mc-query --prefix
+{brewShell}$ bayeux_dev_setup
+{brewShell}$ edw_gentiane_mc_setup
+{brewShell}$ edw-gentiane-mc-query --prefix
 ...
-brewShell$ which edw-gentiane-mc-run
+{brewShell}$ which edw-gentiane-mc-run
 ...
 ```
 
@@ -140,6 +140,6 @@ TO BE DONE: document the ``edw-gentiane-mc-run`` application.
 Usage:
 
 ```sh
-brewShell$ edw-gentiane-mc-run --help
+{brewShell}$ edw-gentiane-mc-run --help
 ...
 ```
