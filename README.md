@@ -26,35 +26,35 @@ $ git clone https://github.com/EDELWEISS-DM/EDW-Gentiane-MC EDW-Gentiane-MC
 $ cd EDW-Gentiane-MC
 $ git status
 ```
-2. Enter a Cadfael/brew shell:
+1. Enter a Cadfael/brew shell:
 ```sh
 $ brewsh
 ```
-3. Setup Bayeux:
+1. Setup Bayeux:
 ```sh
 $ bayeux_dev_setup
 ```
-4. Create a working directory:
+1. Create a working directory:
 ```sh
 $ mkdir -p /tmp/${USER}/softs/EDW-Gentiane-MC/_build.d
 $ cd /tmp/${USER}/softs/EDW-Gentiane-MC/_build.d
 ```
-5. Configure:
+1. Configure:
 ```sh
 $ cmake
     -DCMAKE_INSTALL_PREFIX:PATH="${HOME}/softs/EDELWEISS/EDELWEISS-DM/EDW-Gentiane-MC-Install-0.1.0" \
     -DBayeux_DIR="$(bxquery --cmakedir)" \
     ${HOME}/softs/EDELWEISS/EDELWEISS-DM/EDW-Gentiane-MC
 ```
-6. Build:
+1. Build:
 ```sh
 $ make
 ```
-7. Installation:
+1. Installation:
 ```sh
 $ make install
 ```
-8. You can safely remove the build directory.
+1. You can safely remove the build directory.
 
 
 ## Quick install
@@ -101,7 +101,7 @@ export -f do_edw_gentiane_mc_dev_setup
 alias edw_gentiane_mc_setup="do_edw_gentiane_mc_dev_setup"
 ```
 
-Then, each time you need to use the EDW-Gentiane-MC package, you must setup
+Each time you need to use the EDW-Gentiane-MC package, you must setup
 a Cadfael/brew shell with Bayeux setup and use:
 ```sh
 $ brewsh
