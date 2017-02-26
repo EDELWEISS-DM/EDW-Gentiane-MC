@@ -75,6 +75,7 @@ Options:
   -w | --working-dir dir          Choose the work directory (default=automatic)
   -o | --overwrite-working-dir    Allow overwriting of existing working directory (default=no)
   -k | --lock-working-dir         Make the working output directory locked
+  -T | --tar-working-dir          Make an archive from the working output directory
   -t | --tmp-dir dir              Choose the base temporary directory
   -l | --run-label name           Set the label of the simulation run (default="${default_run_label}")
   -r | --run-id id                Set the simulation run identifier (mandatory)
@@ -154,6 +155,7 @@ simu_dryrun=0
 overwrite_working_dir=0
 lock_working_dir=0
 lock_file=".lock"
+tar_working_dir=0
 
 function app_dialog()
 {
@@ -212,6 +214,9 @@ function app_dialog()
 		;;
 	    -k | --lock-working-dir )
 		lock_working_dir=1
+		;;
+	    -T | --tar-working-dir )
+		tar_working_dir=1
 		;;
 	    -t | --tmp-dir )
 		tmp_dir="$1"
@@ -474,7 +479,7 @@ function action_simulation()
     mkdir -p ${simu_log_dir}
     mkdir -p ${simu_data_dir}
     mkdir -p ${simu_config_dir}
-    local config_metadata_path="${run_full_id}.metadata"
+    local metadata_path="${run_full_id}.metadata"
     local data_path="${run_full_id}.data.gz"
     local config_prng_seeds_path="${run_full_id}-seeds.conf"
     local log_prng_states_path="${run_full_id}-prng_states.log"
@@ -485,7 +490,7 @@ function action_simulation()
     bxg4_seeds -n 1 -d ${simu_config_dir} -k -T --pattern "${config_prng_seeds_path}"
 
     # Generate metadata file:
-    cat > ${simu_config_dir}/${config_metadata_path} <<EOF
+    cat > ${working_dir}/${metadata_path} <<EOF
 application="edw-gentiane-mc-run"
 version="$(edw-gentiane-mc-query --version)"
 start_timestamp=$(date +%s)
@@ -534,9 +539,24 @@ EOF
     fi
 
     # Finalize the metadata file:
-    cat >> ${simu_config_dir}/${config_metadata_path} <<EOF
+    cat >> ${working_dir}/${metadata_path} <<EOF
 stop_timestamp=$(date +%s)
 simu_status=${simu_status}
+EOF
+    cat >> ${working_dir}/README.rst <<EOF
+================================================
+EDW-Gentiane-MC Simulation Production Directory
+================================================
+
+Contents:
+
+* ``README.rst`` : this file
+* ``*.metadata`` : an ASCII file containing config/status metadata
+  about the current simulation run (format: ``key=value``)
+* ``config/`` : contains input configuration file (PRNG seeds)
+* ``log/`` : contains log files
+* ``data/`` : contains the output simulated file
+
 EOF
 
     if [ ${lock_working_dir} -eq 1 ]; then
@@ -545,6 +565,16 @@ EOF
 	chmod -R a-w ${working_dir}
     fi
     tree ${working_dir}/
+
+    if [ ${tar_working_dir} -eq 1 ]; then
+	local archive="${working_dir}.tar"
+	local _tardir=$(dirname ${working_dir})
+	local _ardir=$(basename ${working_dir})
+        tar --create --directory "${_tardir}" --remove-files --file "${archive}" "${_ardir}/"
+	echo >&2 "[notice] Simulation production archive '${archive}' has been generated."
+    else
+	echo >&2 "[notice] Simulation production directory '${working_dir}' has been populated."
+    fi
 
     if [ ${simu_status} -ne 0 ]; then
 	app_exit 1 "Simulation failed! Abort!"
