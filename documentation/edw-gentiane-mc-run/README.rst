@@ -67,6 +67,11 @@ are stored:
 
 The working directory can be optionaly turned into a ``tar`` archive.
 
+This layout  enables not only to  store the output simulated  data but
+only to  keep all informations  needed to track possible  issues which
+could  occur during  the simulation  (geometry bug,  invalid input  or
+configuration).
+
 The   output   data  file   uses   an   I/O   format  based   on   the
 Boost/Serialization library.   The file  contains one  Boost *archive*
 per event (gzip compressed portable binary archive).  It can be parsed
