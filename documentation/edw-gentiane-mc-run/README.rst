@@ -38,7 +38,7 @@ The simulation setup includes:
   (sample, lead shield walls...),
 * a primary  event generator manager (from  the Bayeux/genbb_help API)
   used  to  randomly shoot  the  decaying  particles associated  to  a
-  specific decay channel (:superscript:`60`Co, :superscript:`208`Tl...),
+  specific decay channel (Co-60, Tl-208...),
 * a simulation manager (from the Bayeux/mctools Geant4 plugin library)
   which defines all  the required software components to  run a Geant4
   session and generate  simulated *physics hits* before  to store them
