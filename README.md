@@ -18,7 +18,7 @@ The EDW-Gentiane-MC software depends on:
 
 ## Installation
 
-1. Download the source code:
+1.  Download the source code:
 ```sh
 $ mkdir -p ${HOME}/softs/EDELWEISS/EDELWEISS-DM
 $ cd ${HOME}/softs/EDELWEISS/EDELWEISS-DM
@@ -26,35 +26,35 @@ $ git clone https://github.com/EDELWEISS-DM/EDW-Gentiane-MC EDW-Gentiane-MC
 $ cd EDW-Gentiane-MC
 $ git status
 ```
-1. Enter a Cadfael/brew shell:
+1.  Enter a Cadfael/brew shell:
 ```sh
 $ brewsh
 ```
-1. Setup Bayeux:
+1.  Setup Bayeux:
 ```sh
 $ bayeux_dev_setup
 ```
-1. Create a working directory:
+1.  Create a working directory:
 ```sh
 $ mkdir -p /tmp/${USER}/softs/EDW-Gentiane-MC/_build.d
 $ cd /tmp/${USER}/softs/EDW-Gentiane-MC/_build.d
 ```
-1. Configure:
+1.  Configure:
 ```sh
 $ cmake
     -DCMAKE_INSTALL_PREFIX:PATH="${HOME}/softs/EDELWEISS/EDELWEISS-DM/EDW-Gentiane-MC-Install-0.1.0" \
     -DBayeux_DIR="$(bxquery --cmakedir)" \
     ${HOME}/softs/EDELWEISS/EDELWEISS-DM/EDW-Gentiane-MC
 ```
-1. Build:
+1.  Build:
 ```sh
 $ make
 ```
-1. Installation:
+1.  Installation:
 ```sh
 $ make install
 ```
-1. You can safely remove the build directory.
+1.  You can safely remove the build directory.
 
 
 ## Quick install
