@@ -81,7 +81,7 @@ system.
 Usage:
 
 ```sh
-{brewShell}$ ./utility/quick_install.sh --help
+{brewShell}$ ./utilities/quick_install.sh --help
 ...
 ```
 
