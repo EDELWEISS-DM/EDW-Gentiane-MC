@@ -1,7 +1,7 @@
 # EDW-Gentiane-MC
 EDELWEISS/Gentiane HPGe detector simulation software
 
-![Image](https://github.com/EDELWEISS-DM/EDW-Gentiane-MC/blob/master/resources/config/gentiane/simulation/geant4_control/0.1/images/gentiane_g4_sim-test2.jpeg?raw=true){:height="100px"}
+![Image](https://github.com/EDELWEISS-DM/EDW-Gentiane-MC/blob/master/resources/config/gentiane/simulation/geant4_control/0.1/images/gentiane_g4_sim-test2.jpeg?raw=true){: height="100px"}
 
 ## Introduction
 
