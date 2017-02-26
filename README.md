@@ -6,6 +6,16 @@ EDELWEISS/Gentiane HPGe detector simulation software
 TO BE DONE
 
 
+## Software requirements
+
+The EDW-Gentiane-MC software is known to build and run on:
+- Linux (various flavours like Ubuntu 16.04, SL6.X...)
+- macOS 10.9.5
+
+The EDW-Gentiane-MC software depends on:
+- Cadfaelbrew (https://github.com/SuperNEMO-DBD/brew)
+- Bayeux version >= 3.0 (not published yet on GitHub)
+
 ## Installation
 
 1. Download the source code:
@@ -105,7 +115,7 @@ $ which edw-gentiane-mc-run
 
 ## Using EDW-Gentiane-MC
 
-TO BE DONE: document the ``edw-gentiane-mc-run``` application.
+TO BE DONE: document the ``edw-gentiane-mc-run`` application.
 
 Usage:
 ```sh
