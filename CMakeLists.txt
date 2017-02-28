@@ -64,5 +64,6 @@ find_package(Bayeux ${EDWGentianeMC_Bayeux_VERSION} REQUIRED
 add_subdirectory(utilities)
 add_subdirectory(resources)
 add_subdirectory(programs)
+add_subdirectory(examples)
 
 # - end of CMakeLists.txt
