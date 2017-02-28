@@ -45,13 +45,21 @@ Tests
    {brewShell}$ gsl-histogram 0.0 2000.0 2000 < mctest_42.csv > mctest_42.histo
    {brewShell}$ gnuplot
    gnuplot> set grid
-   gnuplot> set title "EDW-Gentiane-DM - Example ex01 - HPGe spectrocopy"
+   gnuplot> set title "EDW-Gentiane-DM - Example ex01\nHPGe spectrocopy (Co-60)"
    gnuplot> set xlabel "Energy (keV)"
-   gnuplot> set ylabel "Count (/keV)"
+   gnuplot> set ylabel "Events (Counts/keV)"
    gnuplot> set xrange [0.0:2000.0] # keV
-   gnuplot> set yrange [0:8]       # Counts/keV
+   gnuplot> set yrange [0:8]        # Counts/keV
    gnuplot> plot "mctest_42.histo" using (0.5*(column(1)+column(2))):(column(3)) notitle with histeps
 ..
+
+
+.. set terminal pngcairo enhanced color font "Arial,6" size 10cm,6cm
+.. set output "ex01-small.png"
+.. replot
+.. set output
+.. set terminal qt
+
 
 2. Read simulated events and generate output data in a ROOT file (tree):
 

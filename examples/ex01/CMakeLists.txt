@@ -1,6 +1,6 @@
 # - Top level CMakeLists.txt for EDW-Gentiane-MC ex01 example program
 
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 project(EDWGentianeMC_ex01)
 
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
