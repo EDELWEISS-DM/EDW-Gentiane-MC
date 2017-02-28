@@ -1,0 +1,307 @@
+
+     M C T O O L S - G 4
+     Version 2.1.0
+     bxg4_production
+
+     Copyright (C) 2011-2017
+     Francois Mauger, Xavier Garrido, Ben Morgan and Arnaud Chapon
+
+[debug:void geomtools::id_mgr::initialize(const datatools::properties&):494] force_world = 1
+[debug:void geomtools::id_mgr::initialize(const datatools::properties&):500] world_category = 'world'
+[debug:void geomtools::id_mgr::initialize(const datatools::properties&):506] force_plain = 0
+[debug:void geomtools::id_mgr::initialize(const datatools::properties&):512] plain_category = 'plain'
+[debug:virtual void geomtools::manager::_at_init_(const datatools::properties&):891] Geometry manager's ID manager:
+|-- Logging priority  : debug
+|-- World category : 'world'
+|-- Plain category : 'plain'
+|-- Force world category : '1'
+|-- Force plain category : '0'
+`-- Categories      : [12]
+    |-- Category : "brass_rod.gc"
+    |   |-- Category  : 'brass_rod.gc'
+    |   |-- Type      : 2001
+    |   |-- Group     : <none>
+    |   |-- Final     : 0
+    |   |-- Inherits  : "detector.gc"
+    |   |-- Ancestors [1] : "detector.gc"
+    |   |-- Addresses [1] : "unit"
+    |   `-- Locked    : 1
+    |-- Category : "core_lead_shield.gc"
+    |   |-- Category  : 'core_lead_shield.gc'
+    |   |-- Type      : 3040
+    |   |-- Group     : <none>
+    |   |-- Final     : 0
+    |   |-- Addresses [1] : "block"
+    |   `-- Locked    : 1
+    |-- Category : "detector.gc"
+    |   |-- Category  : 'detector.gc'
+    |   |-- Type      : 2000
+    |   |-- Group     : <none>
+    |   |-- Final     : 0
+    |   |-- Addresses [1] : "unit"
+    |   `-- Locked    : 1
+    |-- Category : "ext_copper_plate.gc"
+    |   |-- Category  : 'ext_copper_plate.gc'
+    |   |-- Type      : 3010
+    |   |-- Group     : <none>
+    |   |-- Final     : 0
+    |   |-- Addresses [1] : "plate"
+    |   `-- Locked    : 1
+    |-- Category : "ext_copper_shield.gc"
+    |   |-- Category  : 'ext_copper_shield.gc'
+    |   |-- Type      : 3020
+    |   |-- Group     : <none>
+    |   |-- Final     : 0
+    |   |-- Addresses [1] : "wall"
+    |   `-- Locked    : 1
+    |-- Category : "ext_lead_shield.gc"
+    |   |-- Category  : 'ext_lead_shield.gc'
+    |   |-- Type      : 3000
+    |   |-- Group     : <none>
+    |   |-- Final     : 0
+    |   |-- Addresses [1] : "wall"
+    |   `-- Locked    : 1
+    |-- Category : "hpge_crystal.gc"
+    |   |-- Category  : 'hpge_crystal.gc'
+    |   |-- Type      : 2100
+    |   |-- Group     : <none>
+    |   |-- Final     : 0
+    |   |-- Inherits  : "detector.gc"
+    |   |-- Ancestors [1] : "detector.gc"
+    |   |-- Addresses [1] : "unit"
+    |   `-- Locked    : 1
+    |-- Category : "hpge_crystal_part.gc"
+    |   |-- Category  : 'hpge_crystal_part.gc'
+    |   |-- Type      : 2110
+    |   |-- Group     : <none>
+    |   |-- Final     : 0
+    |   |-- Ancestors [2] : "detector.gc" "hpge_crystal.gc"
+    |   |-- Extends   : "hpge_crystal.gc" by [1] :  "part"
+    |   |-- Addresses [2] : "unit" "part"
+    |   `-- Locked    : 1
+    |-- Category : "int_lead_shield.gc"
+    |   |-- Category  : 'int_lead_shield.gc'
+    |   |-- Type      : 3030
+    |   |-- Group     : <none>
+    |   |-- Final     : 0
+    |   |-- Addresses [1] : "wall"
+    |   `-- Locked    : 1
+    |-- Category : "sample.gc"
+    |   |-- Category  : 'sample.gc'
+    |   |-- Type      : 1010
+    |   |-- Group     : <none>
+    |   |-- Final     : 0
+    |   |-- Ancestors [1] : "sample_box.gc"
+    |   |-- Extends   : "sample_box.gc" by [1] :  "item"
+    |   |-- Addresses [2] : "box" "item"
+    |   `-- Locked    : 1
+    |-- Category : "sample_box.gc"
+    |   |-- Category  : 'sample_box.gc'
+    |   |-- Type      : 1000
+    |   |-- Group     : <none>
+    |   |-- Final     : 0
+    |   |-- Addresses [1] : "box"
+    |   `-- Locked    : 1
+    `-- Category : "world"
+        |-- Category  : 'world'
+        |-- Type      : 0
+        |-- Group     : <none>
+        |-- Final     : 0
+        |-- Addresses [1] : "world"
+        `-- Locked    : 1
+HepRandomEngine::put called -- no effect!
+[notice:void datatools::factory_register<BaseType>::import(const datatools::factory_register<BaseType>&) [with BaseType = mctools::g4::base_physics_constructor]:138] Importing registered factories from register 'mctools::g4::base_physics_constructor/__system__'...
+[notice:void datatools::factory_register<BaseType>::registration(const string&, const factory_type&) [with BaseType = mctools::g4::base_physics_constructor; std::__cxx11::string = std::__cxx11::basic_string<char>; datatools::factory_register<BaseType>::factory_type = boost::function<mctools::g4::base_physics_constructor*()>]:118] Registration of class with ID 'mctools::g4::em_physics_constructor'
+[notice:void datatools::factory_register<BaseType>::registration(const string&, const factory_type&) [with BaseType = mctools::g4::base_physics_constructor; std::__cxx11::string = std::__cxx11::basic_string<char>; datatools::factory_register<BaseType>::factory_type = boost::function<mctools::g4::base_physics_constructor*()>]:118] Registration of class with ID 'mctools::g4::neutrons_physics_constructor'
+[notice:void datatools::factory_register<BaseType>::registration(const string&, const factory_type&) [with BaseType = mctools::g4::base_physics_constructor; std::__cxx11::string = std::__cxx11::basic_string<char>; datatools::factory_register<BaseType>::factory_type = boost::function<mctools::g4::base_physics_constructor*()>]:118] Registration of class with ID 'mctools::g4::particles_physics_constructor'
+[notice:void datatools::factory_register<BaseType>::import(const datatools::factory_register<BaseType>&) [with BaseType = mctools::g4::base_physics_constructor]:145] Done.
+[debug:void mctools::g4::physics_list::initialize(const datatools::properties&):189] Physics list configuration : 
+|-- Description  : 'Main configuration file for the physics lists'
+|   |-- Short description : 'Main configuration file for the physics lists'
+|   `-- Auxiliary descriptions : <none>
+|-- Name : 'logging.priority'
+|   |-- Description  : 'Physics list logging priority (default: "warning")'
+|   |-- Type  : string (scalar)
+|   `-- Value : 'debug'
+|-- Name : 'physics_constructors.EM.config'
+|   |-- Description  : 'Configuration file of the physics constructors named 'EM''
+|   |-- Type  : string (scalar) [explicit path]
+|   `-- Value : '@edwgentiane:config/gentiane/simulation/geant4_control/0.1/physics/em.conf'
+|-- Name : 'physics_constructors.EM.id'
+|   |-- Description  : 'Class ID of the physics constructors named 'EM''
+|   |-- Type  : string (scalar)
+|   `-- Value : 'mctools::g4::em_physics_constructor'
+|-- Name : 'physics_constructors.Particles.config'
+|   |-- Description  : 'Configuration file of the physics constructors named 'Particles''
+|   |-- Type  : string (scalar) [explicit path]
+|   `-- Value : '@edwgentiane:config/gentiane/simulation/geant4_control/0.1/physics/particles.conf'
+|-- Name : 'physics_constructors.Particles.id'
+|   |-- Description  : 'Class ID of the physics constructors named 'Particles''
+|   |-- Type  : string (scalar)
+|   `-- Value : 'mctools::g4::particles_physics_constructor'
+|-- Name : 'physics_constructors.names'
+|   |-- Description  : 'List of physics constructors'
+|   |-- Type  : string[2] (vector)
+|   |-- Value[0] : 'Particles'
+|   `-- Value[1] : 'EM'
+|-- Name : 'production_cuts.default_value'
+|   |-- Description  : 'The production cut default value'
+|   |-- Type  : real (scalar) [explicit unit='mm']
+|   `-- Value : 1 mm
+|-- Name : 'production_cuts.electron'
+|   |-- Description  : 'The production cut for electron'
+|   |-- Type  : real (scalar) [explicit unit='mm']
+|   `-- Value : 1 mm
+|-- Name : 'production_cuts.gamma'
+|   |-- Description  : 'The production cut for gamma'
+|   |-- Type  : real (scalar) [explicit unit='mm']
+|   `-- Value : 1 mm
+|-- Name : 'production_cuts.positron'
+|   |-- Description  : 'The production cut for positron'
+|   |-- Type  : real (scalar) [explicit unit='mm']
+|   `-- Value : 1 mm
+|-- Name : 'production_cuts.proton'
+|   |-- Description  : 'The production cut for proton'
+|   |-- Type  : real (scalar) [explicit unit='mm']
+|   `-- Value : 1 mm
+`-- Name : 'using_production_cuts'
+    |-- Description  : 'The activation flag for regions cuts'
+    |-- Type  : boolean (scalar)
+    `-- Value : 1
+[debug:void mctools::g4::physics_list::initialize(const datatools::properties&):302] Use production cuts set to: 1
+[notice:void mctools::g4::physics_list::initialize(const datatools::properties&):336] Production cuts low edge energy: nan eV
+[notice:void mctools::g4::physics_list::initialize(const datatools::properties&):343] Production cuts high edge energy: nan MeV
+[notice:void mctools::g4::physics_list::initialize(const datatools::properties&):368] Gamma cut set to: 1 mm
+[notice:void mctools::g4::physics_list::initialize(const datatools::properties&):377] Electron cut set to: 1 mm
+[notice:void mctools::g4::physics_list::initialize(const datatools::properties&):386] Positron cut set to: 1 mm
+[notice:void mctools::g4::physics_list::initialize(const datatools::properties&):395] Proton cut set to: 1 mm
+[debug:void mctools::g4::physics_list::initialize(const datatools::properties&):493] Production cuts for regions : 
+[notice:void mctools::g4::physics_list::initialize(const datatools::properties&):518] Original default cut Length : 1 mm 
+[notice:void mctools::g4::physics_list::_register_physics_constructors():542] Registering physics constructor 'EM'...
+[notice:void mctools::g4::physics_list::_register_physics_constructors():542] Registering physics constructor 'Particles'...
+[notice:void mctools::g4::physics_list::_SetCuts():619] Default cut Length : 1 mm 
+[notice:void mctools::g4::physics_list::_SetCuts():627] Default production cuts low edge energy = 990 eV
+[notice:void mctools::g4::physics_list::_SetCuts():629] Default production cuts high edge energy = 100000 GeV
+[notice:void mctools::g4::physics_list::_SetCuts():638] Effective production cuts low edge energy = 990 eV
+[notice:void mctools::g4::physics_list::_SetCuts():640] Effective production cuts high edge energy = 100000 GeV
+Warning : Region <Detector> does not have specific production cuts,
+even though it appears in the current tracking world.
+Default cuts are used for this region.
+Warning : Region <Sample> does not have specific production cuts,
+even though it appears in the current tracking world.
+Default cuts are used for this region.
+HepRandomEngine::put called -- no effect!
+[notice:virtual void mctools::g4::run_action::BeginOfRunAction(const G4Run*):475] # Run 0 is starting...
+[debug:virtual void mctools::g4::run_action::BeginOfRunAction(const G4Run*):576] Initializing the 'plain' data format...
+[notice:virtual void mctools::g4::run_action::BeginOfRunAction(const G4Run*):626] Opening datatools serialization output data file '/home/mauger/EDWGentianeMCProduction/mctest_42/data/mctest_42.data.gz'...
+[notice:virtual void mctools::g4::run_action::BeginOfRunAction(const G4Run*):644] Run #0 is started.
+[notice:virtual void mctools::g4::event_action::BeginOfEventAction(const G4Event*):209] Event #0
+[notice:virtual void mctools::g4::event_action::BeginOfEventAction(const G4Event*):209] Event #100
+[notice:virtual void mctools::g4::event_action::BeginOfEventAction(const G4Event*):209] Event #200
+[notice:virtual void mctools::g4::event_action::BeginOfEventAction(const G4Event*):209] Event #300
+[notice:virtual void mctools::g4::event_action::BeginOfEventAction(const G4Event*):209] Event #400
+[notice:virtual void mctools::g4::event_action::BeginOfEventAction(const G4Event*):209] Event #500
+[notice:virtual void mctools::g4::event_action::BeginOfEventAction(const G4Event*):209] Event #600
+[notice:virtual void mctools::g4::event_action::BeginOfEventAction(const G4Event*):209] Event #700
+[notice:virtual void mctools::g4::event_action::BeginOfEventAction(const G4Event*):209] Event #800
+[notice:virtual void mctools::g4::event_action::BeginOfEventAction(const G4Event*):209] Event #900
+[notice:virtual void mctools::g4::event_action::BeginOfEventAction(const G4Event*):209] Last event #999
+[notice:virtual void mctools::g4::run_action::EndOfRunAction(const G4Run*):650] Run #0 is stopping...
+[debug:virtual void mctools::g4::run_action::EndOfRunAction(const G4Run*):664] Closing the data writer for run #0...
+[notice:virtual void mctools::g4::run_action::EndOfRunAction(const G4Run*):692] Closing datatools writer...
+[notice:virtual void mctools::g4::run_action::EndOfRunAction(const G4Run*):698] Destroying datatools writer...
+[notice:virtual void mctools::g4::run_action::EndOfRunAction(const G4Run*):708] Run #0 is stopped.
+EA
+|-- System dead time   : 0.02 us
+|-- Count(s)      : 1000
+|-- Sum time      : 0.184085 s
+|-- Min time      : 1e-06 s
+|-- Max time      : 0.001866 s
+|-- Sum squ. time : 4.88977e-05 s²
+|-- Total time    : 0.184045 s
+|-- Mean time     : 0.000184085 s
+|-- Sigma time    : 0.000122517 s
+`-- Last elapsed time : 0.000163 s
+EG
+|-- System dead time   : 0.02 us
+|-- Count(s)      : 1000
+|-- Sum time      : 0.022026 s
+|-- Min time      : 1.6e-05 s
+|-- Max time      : 8.8e-05 s
+|-- Sum squ. time : 5.4202e-07 s²
+|-- Total time    : 0.021986 s
+|-- Mean time     : 2.2026e-05 s
+|-- Sigma time    : 7.54157e-06 s
+`-- Last elapsed time : 2e-05 s
+GB
+|-- System dead time   : 0.02 us
+|-- Count(s)      : 1
+|-- Sum time      : 0.020013 s
+|-- Min time      : 0.020013 s
+|-- Max time      : 0.020013 s
+|-- Sum squ. time : 0.00040052 s²
+|-- Total time    : 0.020013 s
+|-- Mean time     : 0.020013 s
+|-- Sigma time    : -
+`-- Last elapsed time : 0.020013 s
+HP
+|-- System dead time   : 0.02 us
+|-- Count(s)      : 1000
+|-- Sum time      : 0.018663 s
+|-- Min time      : 0 s
+|-- Max time      : 0.001685 s
+|-- Sum squ. time : 1.34773e-05 s²
+|-- Total time    : 0.018623 s
+|-- Mean time     : 1.8663e-05 s
+|-- Sigma time    : 0.000114582 s
+`-- Last elapsed time : 1e-06 s
+IO
+|-- System dead time   : 0.02 us
+|-- Count(s)      : 1000
+|-- Sum time      : 0.048083 s
+|-- Min time      : 1.8e-05 s
+|-- Max time      : 0.001439 s
+|-- Sum squ. time : 1.13586e-05 s²
+|-- Total time    : 0.048043 s
+|-- Mean time     : 4.8083e-05 s
+|-- Sigma time    : 9.51135e-05 s
+`-- Last elapsed time : 2.9e-05 s
+RA
+|-- System dead time   : 0.02 us
+|-- Count(s)      : 1
+|-- Sum time      : 0.393207 s
+|-- Min time      : 0.393207 s
+|-- Max time      : 0.393207 s
+|-- Sum squ. time : 0.154612 s²
+|-- Total time    : 0.393207 s
+|-- Mean time     : 0.393207 s
+|-- Sigma time    : -
+`-- Last elapsed time : 0.393207 s
+SD
+|-- System dead time   : 0.02 us
+|-- Count(s)      : 1187
+|-- Sum time      : 0.004045 s
+|-- Min time      : 0 s
+|-- Max time      : 3.1e-05 s
+|-- Sum squ. time : 2.0041e-08 s²
+|-- Total time    : 0.00399752 s
+|-- Mean time     : 3.40775e-06 s
+|-- Sigma time    : 2.29586e-06 s
+`-- Last elapsed time : 3e-06 s
+VG
+|-- System dead time   : 0.02 us
+|-- Count(s)      : 1000
+|-- Sum time      : 0.000497 s
+|-- Min time      : 0 s
+|-- Max time      : 5e-06 s
+|-- Sum squ. time : 5.19e-10 s²
+|-- Total time    : 0.000457 s
+|-- Mean time     : 4.97e-07 s
+|-- Sigma time    : 5.21528e-07 s
+`-- Last elapsed time : 0 s
+[information:datatools::factory_register<BaseType>::~factory_register() [with BaseType = mctools::g4::base_physics_constructor]:37] Destruction (label='mctools::g4::physics_list/factory'...
+[information:void datatools::factory_register<BaseType>::clear() [with BaseType = mctools::g4::base_physics_constructor]:84] Destroying registered allocator/functor 'mctools::g4::em_physics_constructor'
+[information:void datatools::factory_register<BaseType>::clear() [with BaseType = mctools::g4::base_physics_constructor]:84] Destroying registered allocator/functor 'mctools::g4::neutrons_physics_constructor'
+[information:void datatools::factory_register<BaseType>::clear() [with BaseType = mctools::g4::base_physics_constructor]:84] Destroying registered allocator/functor 'mctools::g4::particles_physics_constructor'
+[information:datatools::factory_register<BaseType>::~factory_register() [with BaseType = mctools::g4::base_physics_constructor]:41] Destruction is done (label='mctools::g4::physics_list/factory'...
+[notice:virtual mygsl::prng_state_manager::~prng_state_manager():243] Automated storage of the PRNG state records in file '/home/mauger/EDWGentianeMCProduction/mctest_42/log/mctest_42-prng_states.log' !
