@@ -54,7 +54,7 @@ Tests
 ..
 
 
-.. set terminal pngcairo enhanced color font "Arial,6" size 10cm,6cm
+.. set terminal pngcairo enhanced color font "Arial,6" size 10cm,7.5cm
 .. set output "ex01-small.png"
 .. replot
 .. set output
