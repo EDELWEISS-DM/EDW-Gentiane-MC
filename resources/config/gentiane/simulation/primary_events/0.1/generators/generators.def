@@ -104,6 +104,119 @@ decay_type    : string  = "background"
 #@description The decaying isotope  (genbb/decay0 syntax)
 decay_isotope : string  = "Am241"
 
+############################################################
+[name="gamma-2614keV" type="genbb::single_particle_generator"]
+#@config A single 2614 keV gamma ray, isotropic (Tl208 like)
+
+#@description The name of the generated particle
+particle_name: string = "gamma"
+
+#@description 4-pi isotropic emission momentum
+emission_direction : string = "randomized"
+
+#@description Monokinetic gamma
+mode : string = "monokinetic"
+
+#@description Monokinetic energy
+energy : real as energy  = 2614.0 keV
+
+
+############################################################
+[name="gamma-1461keV" type="genbb::single_particle_generator"]
+#@config A single 1461 keV gamma ray, isotropic (K40 like)
+
+#@description The name of the generated particle
+particle_name: string = "gamma"
+
+#@description 4-pi isotropic emission momentum
+emission_direction : string = "randomized"
+
+#@description Monokinetic gamma
+mode : string = "monokinetic"
+
+#@description Monokinetic energy
+energy : real as energy  = 1461.0 keV
+
+
+############################################################
+[name="gamma-1332keV" type="genbb::single_particle_generator"]
+#@config A single 1332 keV gamma ray, isotropic (Co60 like)
+
+#@description The name of the generated particle
+particle_name: string = "gamma"
+
+#@description 4-pi isotropic emission momentum
+emission_direction : string = "randomized"
+
+#@description Monokinetic gamma
+mode : string = "monokinetic"
+
+#@description Monokinetic energy
+energy : real as energy  = 1332.0 keV
+
+############################################################
+[name="gamma-1173keV" type="genbb::single_particle_generator"]
+#@config A single 1173 keV gamma ray, isotropic (Co60 like)
+
+#@description The name of the generated particle
+particle_name: string = "gamma"
+
+#@description 4-pi isotropic emission momentum
+emission_direction : string = "randomized"
+
+#@description Monokinetic gamma
+mode : string = "monokinetic"
+
+#@description Monokinetic energy
+energy : real as energy  = 1173.0 keV
+
+############################################################
+[name="gamma-609keV" type="genbb::single_particle_generator"]
+#@config A single 609 keV gamma ray, isotropic (Bi214 like)
+
+#@description The name of the generated particle
+particle_name: string = "gamma"
+
+#@description 4-pi isotropic emission momentum
+emission_direction : string = "randomized"
+
+#@description Monokinetic gamma
+mode : string = "monokinetic"
+
+#@description Monokinetic energy
+energy : real as energy  = 609.0 keV
+
+############################################################
+[name="gamma-352keV" type="genbb::single_particle_generator"]
+#@config A single 352 keV gamma ray, isotropic (Pb214 like)
+
+#@description The name of the generated particle
+particle_name: string = "gamma"
+
+#@description 4-pi isotropic emission momentum
+emission_direction : string = "randomized"
+
+#@description Monokinetic gamma
+mode : string = "monokinetic"
+
+#@description Monokinetic energy
+energy : real as energy  = 352.0 keV
+
+############################################################
+[name="gamma-93keV" type="genbb::single_particle_generator"]
+#@config A single 93 keV gamma ray, isotropic (Th234 like)
+
+#@description The name of the generated particle
+particle_name: string = "gamma"
+
+#@description 4-pi isotropic emission momentum
+emission_direction : string = "randomized"
+
+#@description Monokinetic gamma
+mode : string = "monokinetic"
+
+#@description Monokinetic energy
+energy : real as energy  = 93.0 keV
 
 ############################################################
 [name="gamma-46keV" type="genbb::single_particle_generator"]
@@ -120,6 +233,7 @@ mode : string = "monokinetic"
 
 #@description Monokinetic energy
 energy : real as energy  = 46.0 keV
+
 
 
 #################################################################

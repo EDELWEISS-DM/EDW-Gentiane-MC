@@ -22,10 +22,10 @@
 #@description The name of the 3D shape of the bottom copper finger volume
 shape_type  : string = "cylinder"
 
-#@description The top copper finger volume radius
+#@description The bottom copper finger volume radius
 r           : real   = 8.0 mm
 
-#@description The top copper finger volume Z dimension
+#@description The bottom copper finger volume Z dimension
 z           : real   = 32.5 mm
 
 ############
@@ -49,7 +49,7 @@ visibility.hidden : boolean = 0
 #########################################################################
 [name="horizontal_copper_finger.model" type="geomtools::simple_shaped_model"]
 
-#@config The list of properties to configure the bottom copper finger
+#@config The list of properties to configure the horizontal copper finger
 
 ############
 # Geometry #
@@ -58,20 +58,20 @@ visibility.hidden : boolean = 0
 ### #@description The default length unit
 ### length_unit : string = "mm"
 
-#@description The name of the 3D shape of the bottom copper finger volume
+#@description The name of the 3D shape of the horizontal copper finger volume
 shape_type  : string = "cylinder"
 
-#@description The top copper finger volume radius
+#@description The horizontal copper finger volume radius
 r           : real   = 8.0 mm
 
-#@description The top copper finger volume Z dimension
+#@description The horizontal copper finger volume Z dimension
 z           : real   = 40.0 mm
 
 ############
 # Material #
 ############
 
-#@description The name of the material that fills the bottom copper finger volume
+#@description The name of the material that fills the horizontal copper finger volume
 material.ref : string = "copper"
 
 ##############
@@ -309,8 +309,8 @@ visibility.color  : string  = "grey"
 # Mapping #
 ###########
 
-# #@description The mapping directive for the "Crystal" daughter volume
-# mapping.daughter_id.Crystal   : string  = "[hpge_crystal.gc]"
+#@description The mapping directive for the "HorizontalColdFinger" daughter volume
+mapping.daughter_id.HorizontalColdFinger   : string  = "[horizontal_copper_finger.gc]"
 
 # #@description The mapping directive for the "BrassRod" daughter volume
 # mapping.daughter_id.BrassRod   : string  = "[brass_rod.gc]"

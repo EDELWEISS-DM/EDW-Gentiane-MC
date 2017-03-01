@@ -93,6 +93,25 @@ internal_item.placement.DetectorCoverTop.y : real as length = 0.0 mm
 internal_item.placement.DetectorCoverTop.z.gap_mode : string = "min_to_min"
 internal_item.placement.DetectorCoverTop.z.gap_distance : real as length = 260.001 mm
 
+###########
+# Mapping #
+###########
+
+#@description The mapping directive for the "DetectorBase" daughter volume
+mapping.daughter_id.DetectorBase   : string  = "[detector_alu_base.gc]"
+
+#@description The mapping directive for the "DetectorCover" daughter volume
+mapping.daughter_id.DetectorCover   : string  = "[external_cover.gc]"
+
+#@description The mapping directive for the "DetectorCoverTop" daughter volume
+mapping.daughter_id.DetectorCoverTop   : string  = "[external_top_cover.gc]"
+
+#@description The mapping directive for the "DetectorInternals" daughter volume
+mapping.daughter_id.DetectorInternals   : string  = "[internal_chamber.gc]"
+
+
+# #@description The mapping directive for the "BrassRod" daughter volume
+# mapping.daughter_id.BrassRod   : string  = "[brass_rod.gc]"
 
 
 # end

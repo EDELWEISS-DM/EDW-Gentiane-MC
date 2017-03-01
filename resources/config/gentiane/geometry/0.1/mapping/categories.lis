@@ -55,7 +55,7 @@ addresses : string[1] = "unit"
 
 #@config The geometry category associated to HPGE crystal volume
 
-#@description The HPGE crystal GID address inherits the detector address
+#@description The HPGE crystal GID address inherits the detector 
 inherits : string = "detector.gc"
 
 # Expected GID = [2100:0] for the crystal of an unique detector
@@ -74,9 +74,97 @@ by      : string[1] = "part"
 #####################################
 [category="brass_rod.gc" type="2001"]
 
-#@config The geometry category associated to
+#@config The geometry category associated to the brass rod
 
 #@description The brass rod GID address inherits the detector address
+inherits : string = "detector.gc"
+
+#####################################
+[category="teflon_block.gc" type="2002"]
+
+#@config The geometry category associated to the teflon block
+
+#@description The teflon block GID address inherits the detector address
+inherits : string = "detector.gc"
+
+#####################################
+[category="top_copper_finger.gc" type="2003"]
+
+#@config The geometry category associated to the top copper finger
+
+#@description The top copper finger GID address inherits the detector address
+inherits : string = "detector.gc"
+
+#####################################
+[category="contact_plate.gc" type="2004"]
+
+#@config The geometry category associated to the lead contact plate
+
+#@description The lead contact plate GID address inherits the detector address
+inherits : string = "detector.gc"
+
+#####################################
+[category="crystal_support_base.gc" type="2005"]
+
+#@config The geometry category associated to the crystal support base
+
+#@description The crystal support base GID address inherits the detector address
+inherits : string = "detector.gc"
+
+#####################################
+[category="crystal_support.gc" type="2006"]
+
+#@config The geometry category associated to the crystal support
+
+#@description The crystal support GID address inherits the detector address
+inherits : string = "detector.gc"
+
+#####################################
+[category="horizontal_copper_finger.gc" type="2007"]
+
+#@config The geometry category associated to the horizontal copper cold finger
+
+#@description The horizontal copper cold finger support GID address inherits the detector address
+inherits : string = "detector.gc"
+
+#####################################
+[category="detector_alu_base.gc" type="2008"]
+
+#@config The geometry category associated to the detector base
+
+#@description The detector base GID address inherits the detector address
+inherits : string = "detector.gc"
+
+#####################################
+[category="external_cover.gc" type="2009"]
+
+#@config The geometry category associated to the detector cover
+
+#@description The detector cover GID address inherits the detector address
+inherits : string = "detector.gc"
+
+#####################################
+[category="external_top_cover.gc" type="2010"]
+
+#@config The geometry category associated to the detector cover top
+
+#@description The detector cover top GID address inherits the detector address
+inherits : string = "detector.gc"
+
+#####################################
+[category="internal_chamber.gc" type="2011"]
+
+#@config The geometry category associated to the detector internals 
+
+#@description The detector internals GID address inherits the detector address
+inherits : string = "detector.gc"
+
+#####################################
+[category="internal_crystal_stack.gc" type="2012"]
+
+#@config The geometry category associated to the internal crystal stack 
+
+#@description The detector internals GID address inherits the detector address
 inherits : string = "detector.gc"
 
 

@@ -60,4 +60,12 @@ internal_item.placement.InternalDetectorStack.y : real as length = 0.0 mm
 internal_item.placement.InternalDetectorStack.z.gap_mode : string = "min_to_min" 
 internal_item.placement.InternalDetectorStack.z.gap_distance :real as length = 0.0 mm
 
+###########
+# Mapping #
+###########
+
+#@description The mapping directive for the "InternalDetectorStack" daughter volume
+mapping.daughter_id.InternalDetectorStack   : string  = "[internal_crystal_stack.gc]"
+
+
 # end 

@@ -101,8 +101,23 @@ visibility.color  : string  = "grey"
 # Mapping #
 ###########
 
-#@description The mapping directive for the "Crystal" daughter volume
-mapping.daughter_id.Crystal   : string  = "[hpge_crystal.gc]"
+#@description The mapping directive for the "TopCopperFinger" daughter volume
+mapping.daughter_id.TopCopperFinger      : string  = "[top_copper_finger.gc]"
+
+#@description The mapping directive for the "CrystalSupportBase" daughter volume
+mapping.daughter_id.CrystalSupportBase   : string  = "[crystal_support_base.gc]"
+
+#@description The mapping directive for the "CrystalSupport" daughter volume
+mapping.daughter_id.CrystalSupport       : string  = "[crystal_support.gc]"
+
+#@description The mapping directive for the "TeflonBlock" daughter volume
+mapping.daughter_id.TeflonBlock          : string  = "[teflon_block.gc]"
 
 #@description The mapping directive for the "BrassRod" daughter volume
-mapping.daughter_id.BrassRod   : string  = "[brass_rod.gc]"
+mapping.daughter_id.BrassRod             : string  = "[brass_rod.gc]"
+
+#@description The mapping directive for the "Crystal" daughter volume
+mapping.daughter_id.Crystal              : string  = "[hpge_crystal.gc]"
+
+#@description The mapping directive for the "ContactPlate" daughter volume
+mapping.daughter_id.ContactPlate         : string  = "[contact_plate.gc]"
